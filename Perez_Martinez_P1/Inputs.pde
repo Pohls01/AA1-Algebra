@@ -8,8 +8,9 @@
 
 Button startButton;
 
+//Función para inizializar elementos relacionados con inputs
 void setupInputs(){
-  
+  //Se asignan los valores del botón de inicio (posición, tamaño, texto y colores)
   startButton = new Button();
   startButton.x = width/2;
   startButton.y = height/2+150;
@@ -18,18 +19,26 @@ void setupInputs(){
   startButton.butText = "START GAME";
   startButton.hiTextCol = 0;
 }
+//Función que se llama al presionar una tecla
 void keyPressed(){
+  //Si estamos en la escena inicial y pulsamos un número, se añade al número de enemigos
   if (inStart){
     if (keyChecker(key) == "NUM"){
+      //Para añadir un dígito al final de un número, se multiplica por 10 y se suma el dígito correspondiente a la tecla pulsada
       N = (N * 10) + (int(key) - '0');
+      //Se limita el número de enemigos máximo a 100
       if(N>100){N = 100;}
     }
+    //Si se pulsa la tecla de retroceso, se divide el número entre 10, eliminando la última cifra
     if (key == BACKSPACE){
       N /= 10;
     }
   }
 }
+
+//Función que se llama al hacer clic con el ratón
 void mousePressed(){
+  //Si estamos en la escena inicial y hacemos clic sobre el botón de inicio, se desactiva la escena inicial
   if (inStart){
     if(startButton.overButton()){
       inStart = false;
@@ -37,6 +46,7 @@ void mousePressed(){
   }
 }
 
+//Clase que define todos los elementos que puede tener un botón, definiendo valores por defecto para algunos parámetros
 class Button{
   color butCol = 0;
   color highlightCol = 155;
@@ -50,7 +60,8 @@ class Button{
   color textCol = 255;
   color hiTextCol = 0;
   int txtSize = 50;
-  
+
+  //Esta función devuelve un booleano true si el cursor está sobre el botón y false si no es el caso
   boolean overButton(){
     if (mouseX >= x-sizeX/2 && mouseX <= x+sizeX/2 && 
         mouseY >= y-sizeY/2 && mouseY <= y+sizeY/2) {
@@ -61,6 +72,7 @@ class Button{
     }
   }
   
+  //Esta función dibuja el botón, teniendo en cuenta los parámetros asignados, y si el cursor está sobre el o no para resaltarlo
   void drawButton(){
     color tempTextCol;
     rectMode(CENTER);
@@ -84,6 +96,8 @@ class Button{
     }
   }
 }
+
+//Esta función procesa la tecla recibida en el keyPressed e indica de qué tipo de tecla se trata
 String keyChecker(char c){
   if (c >= '0' && c <= '9'){
     return "NUM";

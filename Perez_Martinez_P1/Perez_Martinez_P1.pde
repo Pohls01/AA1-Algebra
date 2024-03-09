@@ -9,11 +9,7 @@
 
 //Variables
 boolean inStart = true;
-float alpha = 0.1;
-float xPNJ = width / 2;
-float yPNJ = height / 2;
-float xPNJ2 = width / 2;
-float yPNJ2 = height / 2;
+
 PFont titulo;
 int N = 0;
 
@@ -49,21 +45,11 @@ void draw(){
   else{
     
   background(0);
-  //Pintar el PNJ
+  //Pintar el PJ
   fill(#AA514E);
   ellipse(mouseX, mouseY, 30.0, 30.0);
-  //Pintar al PNJ
-  //PNJ = (1-alpha)PNJ + alphaPJ
-  xPNJ = (1-alpha)*xPNJ + alpha * mouseX;
-  yPNJ = (1-alpha)*yPNJ + alpha * mouseY;
-  fill(#C78DA3);
-  ellipse(xPNJ, yPNJ, 20, 20);
-
-  //PNJ2 = (1-alpha)PNJ + alphaPNJ
-  xPNJ2 = (1-alpha) * xPNJ2 + alpha * xPNJ;
-  yPNJ2 = (1-alpha) * yPNJ2 + alpha * yPNJ;
-  fill(#FBD2C1);
-  ellipse(xPNJ2, yPNJ2, 20, 20);
+  
+  drawNPCs();
   }
 }
 //Otras funciones
