@@ -7,7 +7,7 @@
 //Arrays for the NPC
 int [] npc_x;
 int [] npc_y;
-int amount_npcs = 10; //10 npcs in the scene
+int amount_npcs = N; //N npcs in the scene
 int radius_npcs = 20;
 int radius_pc = 5;
 
@@ -17,7 +17,7 @@ void setupCollisions(){
   npc_x = new int[amount_npcs];
   npc_y = new int[amount_npcs];
   //NPCs are randomly located
-  for(int counter = 0; counter <amount_npcs; counter++){
+  for(int counter = 0; counter < amount_npcs; counter++){
     npc_x[counter] = (int)random(width);
     npc_y[counter] = (int)random(height);
    
@@ -26,15 +26,15 @@ void setupCollisions(){
 }
 
 //DRAW
-//void draw(){
-//  //Background
-//  background(0);
-//  // drawing the npcs
-//  fill(0, 255, 0);
-//  for(int counter = 0; counter <amount_npcs; counter++){
-//    ellipse(npc_x[counter], npc_y[counter], radius_npcs, radius_npcs);
-//  }
-//}
+void drawEnemies(){
+  //Background
+  background(0);
+  // drawing the npcs
+  fill(0, 255, 0);
+  for(int counter = 0; counter <amount_npcs; counter++){
+    ellipse(npc_x[counter], npc_y[counter], radius_npcs, radius_npcs);
+  }
+}
 
 
 //FUNCTIONS
