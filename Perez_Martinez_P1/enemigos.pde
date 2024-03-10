@@ -49,11 +49,10 @@ void drawEnemies() {
 float desiredX = random(height); 
 float desiredY = random(width);
 
-//Función para nuevas coordenadas
+//Función para nuevas coordenadas de destino
 void NewDestination(){
   desiredX = random(height); 
   desiredY = random(width);
-
 }
 
 //Mover a los enemigos a las coordenadas de destino
@@ -78,4 +77,6 @@ void moveEnemies() {
     enemyX[i] = constrain(enemyX[i], 0, width);
     enemyY[i] = constrain(enemyY[i], 0, height);
     }
+    // Cambia las coordenadas de destino cada cierto tiempo
+  
   }

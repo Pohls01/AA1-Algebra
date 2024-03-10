@@ -18,8 +18,11 @@ void setup(){
   setupInputs();
   titulo = createFont("Cyberpunks Italic.ttf", 50);
   //color de fondo
+  
   InitializeObstaclesPosition();
   InitializeEnemies();
+  NewDestination();
+  
 }
 
 //Escena inicial

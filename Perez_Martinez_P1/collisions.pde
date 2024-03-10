@@ -7,7 +7,7 @@ int [] obstacleCircularY;
 int [] obstacleRectX;
 int [] obstacleRectY;
 
-int amountCircleObstacles = 7; //Amount of circle obstacles in the scene
+int amountCircleObstacles = 8; //Amount of circle obstacles in the scene
 int amountRectObstacles = 7; //Amount of rectangle obstacles in the scene
 
 
@@ -44,7 +44,7 @@ void drawObstacles(){
   }
   
    // drawing the rectangular obstacles
-  fill(0, 255, 0);
+  fill(0, 0, 255);
   for(int counter = 0; counter <amountRectObstacles; counter++){
     rect(obstacleRectX[counter], obstacleRectY[counter], 60, 20);
   }
