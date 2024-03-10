@@ -1,3 +1,6 @@
+//ESTE SE PUEDE BORRAR CREO NO ESTA HACIEBDO NADA VIENE A SER LO DE ENEMIES
+
+
 //a tiny collision detector
 
 //PC = a red circle (via mouse)
@@ -26,7 +29,7 @@ void setupCollisions(){
 }
 
 //DRAW
-void drawEnemies(){
+void drawEnemie(){
   //Background
   background(0);
   // drawing the npcs

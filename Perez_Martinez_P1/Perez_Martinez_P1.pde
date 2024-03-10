@@ -9,9 +9,12 @@
 
 //Variables
 boolean inStart = true;
-
+//boolean inEnemyArena;
 PFont titulo;
 int N = 0;
+int vidas = 3;
+int timeGame = 1000;
+
 
 
 //Set Up - Se ejecuta 1 vez al principio
@@ -22,7 +25,8 @@ void setup(){
   setupInputs();
   titulo = createFont("Cyberpunks Italic.ttf", 50);
   //color de fondo
-  setupCollisions();
+  //setupCollisions();
+  InitializeEnemies();
 }
 
 //Escena inicial
@@ -50,6 +54,10 @@ void draw(){
   ellipse(mouseX, mouseY, 30.0, 30.0);
   
   drawNPCs();
+  //inEnemyArena = true;
+  drawEnemies();
+  moveEnemies();
+
   }
   
 }

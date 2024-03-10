@@ -28,8 +28,8 @@ void drawNPCs(){
   angleNPC2 = atan(abs(yNPC-yNPC2)/abs(xNPC-xNPC2));
 
   //Se utiliza el mismo método que en el caso del NPC1 para hacer que el NPC2 siga al NPC1 a una distancia de 200px
-  xNPC2 = (1-alpha) * xNPC2 + alpha * (xNPC - signum(xNPC-xNPC2)*200*cos(angleNPC2));
-  yNPC2 = (1-alpha) * yNPC2 + alpha * (yNPC - signum(yNPC-yNPC2)*200*sin(angleNPC2));
+  xNPC2 = (1-alpha) * xNPC2 + alpha * (xNPC - signum(xNPC-xNPC2)*150*cos(angleNPC2));
+  yNPC2 = (1-alpha) * yNPC2 + alpha * (yNPC - signum(yNPC-yNPC2)*150*sin(angleNPC2));
   
   //Se dibuja el NPC2
   fill(#FBD2C1);
