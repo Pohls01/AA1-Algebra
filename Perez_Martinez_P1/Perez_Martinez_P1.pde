@@ -1,10 +1,3 @@
-//Un PNJ persigue a un PJ
-//Usamos la eq paramétrica de la recta
-//r(alpha) = P + aplha * vector
-//vector = Q - P
-//Q sera la posición del PJ (final)
-//P sera la posición del PNJ (inicial)
-//El PJ, osea Q, esta en la posición del ratón
 
 
 //Variables
@@ -25,7 +18,7 @@ void setup(){
   setupInputs();
   titulo = createFont("Cyberpunks Italic.ttf", 50);
   //color de fondo
-  //setupCollisions();
+  InitializeObstaclesPosition();
   InitializeEnemies();
 }
 
@@ -57,6 +50,7 @@ void draw(){
   //inEnemyArena = true;
   drawEnemies();
   moveEnemies();
+  drawObstacles();
 
   }
   
