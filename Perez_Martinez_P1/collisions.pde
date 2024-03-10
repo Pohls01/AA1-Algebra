@@ -31,7 +31,7 @@ void drawEnemies(){
   background(0);
   // drawing the npcs
   fill(0, 255, 0);
-  for(int counter = 0; counter <amount_npcs; counter++){
+  for(int counter = 0; counter <N; counter++){
     ellipse(npc_x[counter], npc_y[counter], radius_npcs, radius_npcs);
   }
 }

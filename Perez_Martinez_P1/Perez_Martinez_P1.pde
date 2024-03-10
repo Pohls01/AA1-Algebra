@@ -51,5 +51,6 @@ void draw(){
   
   drawNPCs();
   }
+  
 }
 //Otras funciones
