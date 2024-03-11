@@ -1,14 +1,19 @@
 //Variables
 int amountEnemies; // si pongo N no hace nada :')
-float enemySpeed = 2;
+float enemySpeed = 3;
+float minEnemySpeed = 0.5;
 float maxEnemySpeed = 3;
+float minLoopDuration = 1500;
+float maxLoopDuration = 3000;
+
 ArrayList<PassiveEnemy> pEnemies = new ArrayList<PassiveEnemy>();
 ArrayList<ChasingEnemy> cEnemies = new ArrayList<ChasingEnemy>();
 
 
-class Enemy{
+
+class Enemy {
   boolean chasingEnemy;
-  
+
   float x;
   float y;
   int enemyQuadrant;
@@ -17,69 +22,80 @@ class Enemy{
   float magnitude;
   float speedMultiplier;
   float speedLoopDuration;
-  
+  float loopStartTime;
 
-  void move(){
+
+  void move() {
 
     magnitude = dist(currDestination.x, currDestination.y, x, y);
     currDirection.x = (currDestination.x - x) / magnitude;
     currDirection.y = (currDestination.y - y) / magnitude;
-    
-    x += currDirection.x * enemySpeed;
-    y += currDirection.y * enemySpeed;
-    
+
+    x += currDirection.x * enemySpeed * speedMultiplier;
+    y += currDirection.y * enemySpeed * speedMultiplier;
+
+    if (millis() > loopStartTime + speedLoopDuration) {
+      speedMultiplier = minEnemySpeed;
+      loopStartTime = millis();
+    }
+
+    speedMultiplier =  minEnemySpeed + (1 - (millis() - loopStartTime) / speedLoopDuration) * (maxEnemySpeed-minEnemySpeed);
     x = constrain(x, 10, width - 10);
     y = constrain(y, 10, height - 10);
   }
 }
 
-class PassiveEnemy extends Enemy{
-  void GetNewDestination(){
+class PassiveEnemy extends Enemy {
+  void GetNewDestination() {
     currDestination.x = random(15, width - 15);
     currDestination.y = random(15, height - 15);
   }
-  void initializeEnemy(){
+  void initializeEnemy() {
     x = 0;
     y = random(height);
+    speedLoopDuration = random(minLoopDuration, maxLoopDuration);
+    loopStartTime = millis();
     GetNewDestination();
   }
 }
 
-class ChasingEnemy extends Enemy{
-  
-  void UpdateDestination(){
+class ChasingEnemy extends Enemy {
+
+  void UpdateDestination() {
     currDestination.x = xNPC2;
     currDestination.y = yNPC2;
   }
-  void initializeEnemy(){
+  void initializeEnemy() {
     x = 0;
     y = random(height);
+    speedLoopDuration = random(minLoopDuration, maxLoopDuration);
+    loopStartTime = millis();
     UpdateDestination();
   }
 }
 
 void InitializeEnemies() {
   //Arrays Initialization
-  
+
   //Enemies are randomly located
-   
-   
-   // We label NPCs for the QuadTree quadrants
+
+
+  // We label NPCs for the QuadTree quadrants
   // Top Left = 1
   // Top Right = 2
   // Bottom Right = 3
   // Bottom Left = 4
-  
- 
+
+
   //Inicializar un punto de destino para los enemigos
 }
-int getQuadrant(Enemy enemy){
-    if (enemy.x<width/2.0) {
-      if (enemy.y<height/2.0) return 1;
-      else return 4;
-    } else {
-      if (enemy.y<height/2.0) return 2;
-      else return 3;
+int getQuadrant(Enemy enemy) {
+  if (enemy.x<width/2.0) {
+    if (enemy.y<height/2.0) return 1;
+    else return 4;
+  } else {
+    if (enemy.y<height/2.0) return 2;
+    else return 3;
   }
 }
 
@@ -101,33 +117,32 @@ void moveEnemies() {
   for (int i = 0; i < pEnemies.size(); i++) {
     PassiveEnemy enemy = pEnemies.get(i);
     enemy.move();
-    if (enemy.magnitude < 30){
+    if (enemy.magnitude < 30) {
       enemy.GetNewDestination();
     }
   }
-  for (int i = 0; i < cEnemies.size(); i++){
+  for (int i = 0; i < cEnemies.size(); i++) {
     ChasingEnemy enemy = cEnemies.get(i);
     enemy.UpdateDestination();
     enemy.move();
   }
-    
-    
-//    // Movimiento de dirección a Coordenadas
-//    float direccioX = desiredX - enemy.x;
-//    float direccioY = desiredY - enemy.y;
-//    float magnitud = dist(desiredX, desiredY, enemyX[i], enemyY[i]);
-    
-//    // Normaliza el vector de dirección
-//    direccioX /= magnitud;
-//    direccioY /= magnitud;
 
-//    // Aplica el movimiento en la dirección normalizada
-//    enemyX[i] += direccioX * enemySpeed;
-//    enemyY[i] += direccioY * enemySpeed;
-    
-    // Constrains a value to not exceed a maximum and minimum value, in this case the enemies can't exceed the window
-    //enemyX[i] = constrain(enemyX[i], 10, width - 10);
-    //enemyY[i] = constrain(enemyY[i], 10, height - 10);
-    }
-    // Cambia las coordenadas de destino cada cierto tiempo
- 
+
+  //    // Movimiento de dirección a Coordenadas
+  //    float direccioX = desiredX - enemy.x;
+  //    float direccioY = desiredY - enemy.y;
+  //    float magnitud = dist(desiredX, desiredY, enemyX[i], enemyY[i]);
+
+  //    // Normaliza el vector de dirección
+  //    direccioX /= magnitud;
+  //    direccioY /= magnitud;
+
+  //    // Aplica el movimiento en la dirección normalizada
+  //    enemyX[i] += direccioX * enemySpeed;
+  //    enemyY[i] += direccioY * enemySpeed;
+
+  // Constrains a value to not exceed a maximum and minimum value, in this case the enemies can't exceed the window
+  //enemyX[i] = constrain(enemyX[i], 10, width - 10);
+  //enemyY[i] = constrain(enemyY[i], 10, height - 10);
+}
+// Cambia las coordenadas de destino cada cierto tiempo

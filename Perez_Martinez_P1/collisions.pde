@@ -1,8 +1,8 @@
 
 //VARIABLES
 //Arrays for the obstacle Collisions
-int [] obstacleCircularX;
-int [] obstacleCircularY;
+Obstacle [] circleObstacles;
+Obstacle [] rectObstacles;
 
 int [] obstacleRectX;
 int [] obstacleRectY;
@@ -10,16 +10,41 @@ int [] obstacleRectY;
 int amountCircleObstacles = 8; //Amount of circle obstacles in the scene
 int amountRectObstacles = 7; //Amount of rectangle obstacles in the scene
 
+class Obstacle{
+  boolean isCircle;
+  
+  float x;
+  float y;
+  float sizeX;
+  float sizeY;
+}
 
+Obstacle InitCircleObstacle(){
+  Obstacle tempCircle = new Obstacle();
+  tempCircle.isCircle = true;
+  tempCircle.x = random(width);
+  tempCircle.y = random(height);
+  tempCircle.sizeX = 60;
+  tempCircle.sizeY = 20;
+  
+  return tempCircle;
+}
+Obstacle InitRectObstacle(){
+  Obstacle tempRect = new Obstacle();
+  tempRect.isCircle = false;
+  tempRect.x = random(width);
+  tempRect.y = random(height);
+  tempRect.sizeX = 20;
+  tempRect.sizeY = 20;
+  
+  return tempRect;
+}
 //SET UP
 void InitializeObstaclesPosition(){
   //array inicialization for circular obstacles
-  obstacleCircularX = new int[amountCircleObstacles];
-  obstacleCircularY = new int[amountCircleObstacles];
+  circleObstacles = new Obstacle[amountCircleObstacles];
   
- //array inicialization for rectangular obstacles
-  obstacleRectX = new int[amountRectObstacles];
-  obstacleRectY = new int[amountRectObstacles];
+  rectObstacles = new Obstacle[amountCircleObstacles];
   
   //Circular Obstacles are randomly located
   for(int counter = 0; counter < amountCircleObstacles; counter++){
