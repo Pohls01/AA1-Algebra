@@ -19,7 +19,7 @@ void setup(){
   
   InitializeObstaclesPosition();
   InitializeEnemies();
-  NewDestination();
+  //NewDestination();
   
 }
 
@@ -35,6 +35,19 @@ void startDraw(){
   startButton.drawButton();
 }
 
+void gameSetup(){
+  int i = 0;
+  for (; i < N/2; i++){
+    PassiveEnemy pEnemy = new PassiveEnemy();
+    pEnemy.initializeEnemy();
+    pEnemies.add(pEnemy);
+  }
+  for (; i < N; i++){
+    ChasingEnemy cEnemy = new ChasingEnemy();
+    cEnemy.initializeEnemy();
+    cEnemies.add(cEnemy);
+  }
+}
 //Draw - Se ejecuta infinitas veces en bucle
 void draw(){
   if(inStart){

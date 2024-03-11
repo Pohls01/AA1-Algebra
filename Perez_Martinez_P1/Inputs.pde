@@ -42,6 +42,7 @@ void mousePressed(){
   if (inStart){
     if(startButton.overButton()){
       inStart = false;
+      gameSetup();
     }
   }
 }

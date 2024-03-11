@@ -1,19 +1,63 @@
 //Variables
-float[] enemyX, enemyY;
-int [] enemyQuadrant;
-int amountEnemies = 12; // si pongo N no hace nada :')
+int amountEnemies; // si pongo N no hace nada :')
 float enemySpeed = 2;
+ArrayList enemies = new ArrayList<>();
+
+
+class Enemy{
+  boolean chasingEnemy;
+  
+  float x;
+  float y;
+  int enemyQuadrant;
+  Vector2 currDestination = new Vector2();
+  Vector2 currDirection = new Vector2();
+  float magnitude;
+  
+
+  void move(){
+
+    magnitude = dist(currDestination.x, currDestination.y, x, y);
+    currDirection.x = (currDestination.x - x) / magnitude;
+    currDirection.y = (currDestination.y - y) / magnitude;
+    
+    x += currDirection.x * enemySpeed;
+    y += currDirection.y * enemySpeed;
+    
+    x = constrain(x, 10, width - 10);
+    y = constrain(y, 10, height - 10);
+  }
+}
+
+class PassiveEnemy extends Enemy{
+  void GetNewDestination(){
+    currDestination.x = random(15, width - 15);
+    currDestination.y = random(15, height -15);
+  }
+  void initializeEnemy(){
+    x = 0;
+    y = random(height);
+    GetNewDestination();
+  }
+}
+
+class ChasingEnemy extends Enemy{
+  
+  void GetNewDestination(){
+    currDestination.x = xNPC2;
+    currDestination.y = yNPC2;
+  }
+  void initializeEnemy(){
+    x = 0;
+    y = random(height);
+    GetNewDestination();
+  }
+}
 
 void InitializeEnemies() {
   //Arrays Initialization
-  enemyX = new float[amountEnemies];
-  enemyY = new float[amountEnemies];
-  enemyQuadrant = new int[amountEnemies];
   
   //Enemies are randomly located
-  for (int i = 0; i < amountEnemies; i++) {
-   enemyX[i] = 0; //los enemigos  aparecen paulatinamente del lado izquierdo de la ventana
-   enemyY[i] = (int)random(height);
    
    
    // We label NPCs for the QuadTree quadrants
@@ -21,62 +65,61 @@ void InitializeEnemies() {
   // Top Right = 2
   // Bottom Right = 3
   // Bottom Left = 4
-  for (int counter=0; counter<amountEnemies; counter++) {
-    if (enemyX[counter]<width/2.0) {
-      if (enemyY[counter]<height/2.0) enemyQuadrant[counter] = 1;
-      else enemyQuadrant[counter] = 4;
-    } else {
-      if (enemyY[counter]<height/2.0) enemyQuadrant[counter] = 2;
-      else enemyQuadrant[counter] = 3;
-    }
-  }
-  }
   
+ 
   //Inicializar un punto de destino para los enemigos
-  NewDestination();
-  
+}
+int getQuadrant(Enemy enemy){
+    if (enemy.x<width/2.0) {
+      if (enemy.y<height/2.0) return 1;
+      else return 4;
+    } else {
+      if (enemy.y<height/2.0) return 2;
+      else return 3;
+  }
 }
 
 void drawEnemies() {
-  for (int i = 0; i < amountEnemies; i++) {
-    fill(255, 0, 0);
-    ellipse(enemyX[i], enemyY[i], 20, 20);
+  fill(255, 0, 0);
+  for (int i = 0; i < enemies.size(); i++) {
+    Object enemy = enemies.get(i);
+    ellipse(enemy.x, enemy.y, 20, 20);
   }
-}
-
-
-//Coordenadas de destino
-float desiredX = random(height); 
-float desiredY = random(width);
-
-//Función para nuevas coordenadas de destino
-void NewDestination(){
-  desiredX = random(height); 
-  desiredY = random(width);
 }
 
 //Mover a los enemigos a las coordenadas de destino
 void moveEnemies() {
-  randomSeed(0);
-  for (int i = 0; i < amountEnemies; i++) {
-    NewDestination();
-    // Movimiento de dirección a Coordenadas
-    float direccioX = desiredX - enemyX[i];
-    float direccioY = desiredY - enemyY[i];
-    float magnitud = dist(desiredX, desiredY, enemyX[i], enemyY[i]);
+  //randomSeed(0);
+  for (int i = 0; i < pEnemies.size(); i++) {
+    PassiveEnemy enemy = pEnemies.get(i);
+    enemy.move();
+    if (enemy.magnitude < 30){
+      enemy.GetNewDestination();
+    }
+  }
+  for (int i = 0; i < cEnemies.size(); i++){
+    ChasingEnemy enemy = cEnemies.get(i);
+    enemy.UpdateDestination();
+    enemy.move();
+  }
     
-    // Normaliza el vector de dirección
-    direccioX /= magnitud;
-    direccioY /= magnitud;
+    
+//    // Movimiento de dirección a Coordenadas
+//    float direccioX = desiredX - enemy.x;
+//    float direccioY = desiredY - enemy.y;
+//    float magnitud = dist(desiredX, desiredY, enemyX[i], enemyY[i]);
+    
+//    // Normaliza el vector de dirección
+//    direccioX /= magnitud;
+//    direccioY /= magnitud;
 
-    // Aplica el movimiento en la dirección normalizada
-    enemyX[i] += direccioX * enemySpeed;
-    enemyY[i] += direccioY * enemySpeed;
+//    // Aplica el movimiento en la dirección normalizada
+//    enemyX[i] += direccioX * enemySpeed;
+//    enemyY[i] += direccioY * enemySpeed;
     
     // Constrains a value to not exceed a maximum and minimum value, in this case the enemies can't exceed the window
-    enemyX[i] = constrain(enemyX[i], 10, width - 10);
-    enemyY[i] = constrain(enemyY[i], 10, height - 10);
+    //enemyX[i] = constrain(enemyX[i], 10, width - 10);
+    //enemyY[i] = constrain(enemyY[i], 10, height - 10);
     }
     // Cambia las coordenadas de destino cada cierto tiempo
-  
-  }
+ 
