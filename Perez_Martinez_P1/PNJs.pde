@@ -26,8 +26,8 @@ void drawNPCs(){
   //Para que le siga a cierta distancia (un radio de 150px), se aplica esta distancia proporcionalmente a cada eje con respecto al ángulo obtenido anteriormente
   //Se utiliza el coseno para la componente horizontal y el seno para la vertical
   //Se utiliza la función signum() para aplicar un signo positivo o negativo al offset dependiendo de la posición relativa del NPC1 con respecto al PC
-  xNPC = ((1-alpha) * xNPC + alpha * (mouseX - signum(mouseX-xNPC)* 150 *cos(angleNPC1)));
-  yNPC = ((1-alpha) * yNPC + alpha * (mouseY - signum(mouseY-yNPC)* 150 *sin(angleNPC1)));
+  xNPC = ((1-alpha) * xNPC + alpha * (mouseX - signum(mouseX-xNPC)* 80 *cos(angleNPC1)));
+  yNPC = ((1-alpha) * yNPC + alpha * (mouseY - signum(mouseY-yNPC)* 80 *sin(angleNPC1)));
   
   //Se dibuja el NPC1
   fill(#C78DA3);
@@ -37,8 +37,8 @@ void drawNPCs(){
   angleNPC2 = atan(abs(yNPC-yNPC2)/abs(xNPC-xNPC2));
 
   //Se utiliza el mismo método que en el caso del NPC1 para hacer que el NPC2 siga al NPC1 a una distancia de 200px
-  xNPC2 = (1-alpha) * xNPC2 + alpha * (xNPC - signum(xNPC-xNPC2)*150*cos(angleNPC2));
-  yNPC2 = (1-alpha) * yNPC2 + alpha * (yNPC - signum(yNPC-yNPC2)*150*sin(angleNPC2));
+  xNPC2 = (1-alpha) * xNPC2 + alpha * (xNPC - signum(xNPC-xNPC2)*80*cos(angleNPC2));
+  yNPC2 = (1-alpha) * yNPC2 + alpha * (yNPC - signum(yNPC-yNPC2)*80*sin(angleNPC2));
   
   //Se dibuja el NPC2
   fill(#FBD2C1);

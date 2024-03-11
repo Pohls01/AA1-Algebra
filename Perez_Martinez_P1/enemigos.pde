@@ -74,8 +74,8 @@ void moveEnemies() {
     enemyY[i] += direccioY * enemySpeed;
     
     // Constrains a value to not exceed a maximum and minimum value, in this case the enemies can't exceed the window
-    enemyX[i] = constrain(enemyX[i], 0, width);
-    enemyY[i] = constrain(enemyY[i], 0, height);
+    enemyX[i] = constrain(enemyX[i], 10, width - 10);
+    enemyY[i] = constrain(enemyY[i], 10, height - 10);
     }
     // Cambia las coordenadas de destino cada cierto tiempo
   

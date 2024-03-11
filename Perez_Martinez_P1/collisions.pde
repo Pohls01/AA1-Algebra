@@ -41,12 +41,18 @@ void drawObstacles(){
   fill(0, 255, 0);
   for(int counter = 0; counter <amountCircleObstacles; counter++){
     ellipse(obstacleCircularX[counter], obstacleCircularY[counter], 20, 20);
-  }
+    // Constrains a value to not exceed a maximum and minimum value, in this case the enemies can't exceed the window
+    obstacleCircularX[counter] = constrain(obstacleCircularX[counter], 20, width - 20);
+    obstacleCircularY[counter] = constrain(obstacleCircularY[counter], 20, height - 20);
+    }
   
    // drawing the rectangular obstacles
   fill(0, 0, 255);
   for(int counter = 0; counter <amountRectObstacles; counter++){
     rect(obstacleRectX[counter], obstacleRectY[counter], 60, 20);
+    // Constrains a value to not exceed a maximum and minimum value, in this case the enemies can't exceed the window
+    obstacleRectX[counter] = constrain(obstacleRectX[counter], 20, width - 20);
+    obstacleRectY[counter] = constrain(obstacleRectY[counter], 20, height - 20);
   }
 }
 
