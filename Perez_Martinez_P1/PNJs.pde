@@ -20,14 +20,14 @@ void drawNPCs(){
   //Obtenemos el ángulo entre el PC y el NPC1 mediante la arco tangente del vector que los une
   //Se utilizan valores absolutos porque la función atan() solo devuelve valores entre -PI/2 y PI/2
   //Más adelante se comprobará la posición relativa para añadir el signo correspondiente
-  angleNPC1 = atan(abs(mouseY-yNPC)/abs(mouseX-xNPC));
+  angleNPC1 = atan(abs(player.y-yNPC)/abs(player.x-xNPC));
   
   //Hacemos que el NPC1 siga al PC a cierta velocidad controlada por el parámetro alpha
   //Para que le siga a cierta distancia (un radio de 150px), se aplica esta distancia proporcionalmente a cada eje con respecto al ángulo obtenido anteriormente
   //Se utiliza el coseno para la componente horizontal y el seno para la vertical
   //Se utiliza la función signum() para aplicar un signo positivo o negativo al offset dependiendo de la posición relativa del NPC1 con respecto al PC
-  xNPC = ((1-alpha) * xNPC + alpha * (mouseX - signum(mouseX-xNPC)* 80 *cos(angleNPC1)));
-  yNPC = ((1-alpha) * yNPC + alpha * (mouseY - signum(mouseY-yNPC)* 80 *sin(angleNPC1)));
+  xNPC = ((1-alpha) * xNPC + alpha * (player.x - signum(player.x-xNPC)* 80 *cos(angleNPC1)));
+  yNPC = ((1-alpha) * yNPC + alpha * (player.y - signum(player.y-yNPC)* 80 *sin(angleNPC1)));
   
   //Se dibuja el NPC1
   fill(#C78DA3);
