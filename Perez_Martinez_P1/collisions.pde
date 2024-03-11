@@ -1,38 +1,58 @@
-//a tiny collision detector
-
-//PC = a red circle (via mouse)
-//NPC's = green circles (static)
 
 //VARIABLES
-//Arrays for the NPC
-int [] npc_x;
-int [] npc_y;
-int amount_npcs = N; //N npcs in the scene
-int radius_npcs = 20;
-int radius_pc = 5;
+//Arrays for the obstacle Collisions
+int [] obstacleCircularX;
+int [] obstacleCircularY;
+
+int [] obstacleRectX;
+int [] obstacleRectY;
+
+int amountCircleObstacles = 8; //Amount of circle obstacles in the scene
+int amountRectObstacles = 7; //Amount of rectangle obstacles in the scene
+
 
 //SET UP
-void setupCollisions(){
-  //array inicialization
-  npc_x = new int[amount_npcs];
-  npc_y = new int[amount_npcs];
-  //NPCs are randomly located
-  for(int counter = 0; counter < amount_npcs; counter++){
-    npc_x[counter] = (int)random(width);
-    npc_y[counter] = (int)random(height);
-   
+void InitializeObstaclesPosition(){
+  //array inicialization for circular obstacles
+  obstacleCircularX = new int[amountCircleObstacles];
+  obstacleCircularY = new int[amountCircleObstacles];
+  
+ //array inicialization for rectangular obstacles
+  obstacleRectX = new int[amountRectObstacles];
+  obstacleRectY = new int[amountRectObstacles];
+  
+  //Circular Obstacles are randomly located
+  for(int counter = 0; counter < amountCircleObstacles; counter++){
+    obstacleCircularX[counter] = (int)random(width);
+    obstacleCircularY[counter] = (int)random(height);
+  }
+  
+  //Rectangular Obstacles are randomly located
+  for(int counter = 0; counter < amountRectObstacles; counter++){
+    obstacleRectX[counter] = (int)random(width);
+    obstacleRectY[counter] = (int)random(height);
   }
 
 }
 
 //DRAW
-void drawEnemies(){
-  //Background
-  background(0);
-  // drawing the npcs
+void drawObstacles(){
+  // drawing the circular obstacles
   fill(0, 255, 0);
-  for(int counter = 0; counter <amount_npcs; counter++){
-    ellipse(npc_x[counter], npc_y[counter], radius_npcs, radius_npcs);
+  for(int counter = 0; counter <amountCircleObstacles; counter++){
+    ellipse(obstacleCircularX[counter], obstacleCircularY[counter], 20, 20);
+    // Constrains a value to not exceed a maximum and minimum value, in this case the enemies can't exceed the window
+    obstacleCircularX[counter] = constrain(obstacleCircularX[counter], 20, width - 20);
+    obstacleCircularY[counter] = constrain(obstacleCircularY[counter], 20, height - 20);
+    }
+  
+   // drawing the rectangular obstacles
+  fill(0, 0, 255);
+  for(int counter = 0; counter <amountRectObstacles; counter++){
+    rect(obstacleRectX[counter], obstacleRectY[counter], 60, 20);
+    // Constrains a value to not exceed a maximum and minimum value, in this case the enemies can't exceed the window
+    obstacleRectX[counter] = constrain(obstacleRectX[counter], 20, width - 20);
+    obstacleRectY[counter] = constrain(obstacleRectY[counter], 20, height - 20);
   }
 }
 
