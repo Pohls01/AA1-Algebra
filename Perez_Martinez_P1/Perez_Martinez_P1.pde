@@ -4,9 +4,16 @@ PFont titulo;
 int N = 0;
 int vidas = 3;
 int salud = 100;
-int timeGame = 1000;
+int currentTime;
+int timeLeft;
+int maxTimeGame = 150;
 int score = 0;
+
 Player player;
+
+PImage PJimage;
+PImage PNJ1image;
+PImage PNJ2image;
 
 //Set Up - Se ejecuta 1 vez al principio
 void setup(){
@@ -22,6 +29,8 @@ void setup(){
   InitializeEnemies();
   //NewDestination();
   
+  //Initialize/Load images 
+  PJimage = loadImage("PJ.png");
 }
 
 //Escena inicial
@@ -49,6 +58,9 @@ void gameSetup(){
     cEnemy.initializeEnemy();
     cEnemies.add(cEnemy);
   }
+  timeLeft = maxTimeGame;
+  currentTime = millis();
+  
 }
 //Draw - Se ejecuta infinitas veces en bucle
 void draw(){
@@ -59,17 +71,22 @@ void draw(){
     
   background(0);
   //Pintar el PJ
-  
-  fill(#AA514E);
-  ellipse(player.x, player.y, 30.0, 30.0);
+  image(PJimage, mouseX, mouseY);
+  PJimage.resize(50, 90);
+  //fill(#AA514E);
+  //ellipse(player.x, player.y, 30.0, 30.0);
   
   drawNPCs();
   drawEnemies();
   player.move();
   moveEnemies();
   drawObstacles();
-
-  }
   
+  if(millis()-currentTime >= 1000){
+    timeLeft--;
+    currentTime = millis();
+  }
+  text(timeLeft/60+":"+timeLeft%60,800,800);
+  }
 }
 //Otras funciones
