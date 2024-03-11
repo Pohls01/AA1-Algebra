@@ -1,7 +1,9 @@
 //Variables
 int amountEnemies; // si pongo N no hace nada :')
 float enemySpeed = 2;
-ArrayList enemies = new ArrayList<>();
+float maxEnemySpeed = 3;
+ArrayList<PassiveEnemy> pEnemies = new ArrayList<PassiveEnemy>();
+ArrayList<ChasingEnemy> cEnemies = new ArrayList<ChasingEnemy>();
 
 
 class Enemy{
@@ -13,6 +15,8 @@ class Enemy{
   Vector2 currDestination = new Vector2();
   Vector2 currDirection = new Vector2();
   float magnitude;
+  float speedMultiplier;
+  float speedLoopDuration;
   
 
   void move(){
@@ -32,7 +36,7 @@ class Enemy{
 class PassiveEnemy extends Enemy{
   void GetNewDestination(){
     currDestination.x = random(15, width - 15);
-    currDestination.y = random(15, height -15);
+    currDestination.y = random(15, height - 15);
   }
   void initializeEnemy(){
     x = 0;
@@ -43,14 +47,14 @@ class PassiveEnemy extends Enemy{
 
 class ChasingEnemy extends Enemy{
   
-  void GetNewDestination(){
+  void UpdateDestination(){
     currDestination.x = xNPC2;
     currDestination.y = yNPC2;
   }
   void initializeEnemy(){
     x = 0;
     y = random(height);
-    GetNewDestination();
+    UpdateDestination();
   }
 }
 
@@ -81,8 +85,12 @@ int getQuadrant(Enemy enemy){
 
 void drawEnemies() {
   fill(255, 0, 0);
-  for (int i = 0; i < enemies.size(); i++) {
-    Object enemy = enemies.get(i);
+  for (int i = 0; i < pEnemies.size(); i++) {
+    PassiveEnemy enemy = pEnemies.get(i);
+    ellipse(enemy.x, enemy.y, 20, 20);
+  }
+  for (int i = 0; i < cEnemies.size(); i++) {
+    ChasingEnemy enemy = cEnemies.get(i);
     ellipse(enemy.x, enemy.y, 20, 20);
   }
 }
