@@ -29,5 +29,3 @@ class powerUP{
   enemySpeed = 0;
   }
 }
-
-void 
