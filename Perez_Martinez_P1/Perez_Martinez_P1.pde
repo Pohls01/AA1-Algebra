@@ -86,8 +86,7 @@ void draw(){
     
   background(255);
   //Pintar el PJ
-SwitchCommandsMovement();
-player.move();
+
 image(PJimage, player.x, player.y);
   
   

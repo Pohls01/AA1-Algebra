@@ -25,6 +25,7 @@ if(!mouseCommandActivated){
     y = (mouseDelay) * y + (1-mouseDelay) * mouseY;
   }
 }
+}
 
 Player InitializePlayer(){
   Player tempPlayer = new Player();

@@ -1,10 +1,4 @@
-//int getNum(char c){
-//  int tempNum = 0;
-//  c = keyPressed;
-//  if (keyChecker(c)=="NUM"){
-    
-//  }
-//}
+boolean mouseCommandActivated = true;
 
 Button startButton;
 
@@ -33,6 +27,17 @@ void keyPressed(){
     if (key == BACKSPACE){
       N /= 10;
     }
+  }
+  //Comprobación de los comandos activados
+  else{
+   if(key == 'K' || key == 'k'){
+      mouseCommandActivated = false;
+      }
+      
+    if(key == 'M' || key == 'm'){
+      mouseCommandActivated = true; 
+      }   
+  
   }
 }
 
