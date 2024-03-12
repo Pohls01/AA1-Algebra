@@ -18,13 +18,13 @@ PImage fondito;
 //Set Up - Se ejecuta 1 vez al principio
 void setup(){
   //La ventana
-  //size(1800, 1200);
-  fullScreen();
+  size(1920, 1080);
+  //fullScreen();
   
   setupInputs();
   titulo = createFont("Cyberpunks Italic.ttf", 50);
   //color de fondo
-  InitializeObstaclesPosition();
+  //InitializeObstaclesPosition();
   InitializeEnemies();
   //NewDestination();
   
@@ -47,16 +47,14 @@ void startDraw(){
   fill(0);
   text("Introduce the number of enemies", width/2, height/2-50);
   textSize(75);
-   
-  
   
   text(N, width/2, height/2+30);
   startButton.drawButton();
- 
- textSize(25);
- textAlign(CENTER);
- text("         Presiona M (Ratón) o K (Teclado) INGAME para cambiar el movimiento", 900, 800);
   
+  textSize(25);
+  textAlign(CENTER);
+  fill(0);
+  text("Presiona M (Ratón) o K (Teclado) INGAME para cambiar el movimiento", width/2, height/2 + 250);
  
 }
 
@@ -86,7 +84,7 @@ void draw(){
     
   background(255);
   //Pintar el PJ
-
+imageMode(CENTER);
 image(PJimage, player.x, player.y);
   
   
@@ -100,7 +98,7 @@ image(PJimage, player.x, player.y);
   drawEnemies();
   player.move();
   moveEnemies();
-  drawObstacles();
+  //drawObstacles();
   
   
   //Contador de tiempo restante de partida

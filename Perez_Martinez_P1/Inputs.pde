@@ -1,6 +1,7 @@
 boolean mouseCommandActivated = true;
 
 Button startButton;
+boolean keyUp, keyDown, keyLeft, keyRight;
 
 //Función para inizializar elementos relacionados con inputs
 void setupInputs(){
@@ -30,16 +31,33 @@ void keyPressed(){
   }
   //Comprobación de los comandos activados
   else{
-   if(key == 'K' || key == 'k'){
+    if(key == 'K' || key == 'k'){
       mouseCommandActivated = false;
-      }
+    }
       
     if(key == 'M' || key == 'm'){
       mouseCommandActivated = true; 
-      }   
-  
-  }
+    }   
+    if (key=='w' || key=='W')
+    keyUp = true;
+    if (key=='s' || key=='S')
+    keyDown = true;
+    if (key=='a' || key=='A')
+    keyLeft = true;
+    if (key=='d' || key=='D')
+    keyRight = true;
+   }
 }
+void keyReleased(){
+       if (key=='w' || key=='W')
+       keyUp = false;
+       if (key=='s' || key=='S')
+       keyDown = false;
+       if (key=='a' || key=='A')
+       keyLeft = false;
+       if (key=='d' || key=='D')
+       keyRight = false;
+   }
 
 //Función que se llama al hacer clic con el ratón
 void mousePressed(){
