@@ -1,4 +1,6 @@
 //Variables
+boolean playerCollisionPU;
+
 class powerUP{
   float x;
   float y;
@@ -23,5 +25,9 @@ class powerUP{
   salud +=50; //VALOR TEMPORAL
   }
   
-  void PowerUp(){}
+  void PowerUpFreezeEnemies(){
+  enemySpeed = 0;
+  }
 }
+
+void 

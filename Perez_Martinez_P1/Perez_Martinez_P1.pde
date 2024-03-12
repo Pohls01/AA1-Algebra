@@ -54,10 +54,10 @@ void startDraw(){
   text(N, width/2, height/2+30);
   startButton.drawButton();
  
- textSize(30);
+ textSize(25);
  textAlign(CENTER);
- text("Presiona M(Ratón) o K(Teclado) para cambiar el movimiento", 900, 800);
- 
+ text("         Presiona M (Ratón) o K (Teclado) INGAME para cambiar el movimiento", 900, 800);
+  
  
 }
 
