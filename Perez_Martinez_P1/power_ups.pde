@@ -7,5 +7,21 @@ class powerUP{
      player.mouseDelay = 0.2;
   }
   
-  //void 
+  void PowerUpSlowEnemies(){
+  enemySpeed = 1;
+  }
+  
+  void PoweUpExtraLife(){
+  vidas +=1;
+  }
+  
+  void PowerUpMoreTime(){
+  currentTime += 60*1000;
+  }
+  
+  void PowerUpRestoreLifePNJ(){
+  salud +=50; //VALOR TEMPORAL
+  }
+  
+  void PowerUp(){}
 }

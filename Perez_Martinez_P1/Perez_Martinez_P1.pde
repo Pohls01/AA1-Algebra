@@ -14,6 +14,7 @@ Player player;
 PImage PJimage;
 PImage PNJ1image;
 PImage PNJ2image;
+PImage fondito;
 
 //Set Up - Se ejecuta 1 vez al principio
 void setup(){
@@ -24,18 +25,22 @@ void setup(){
   setupInputs();
   titulo = createFont("Cyberpunks Italic.ttf", 50);
   //color de fondo
-  
   InitializeObstaclesPosition();
   InitializeEnemies();
   //NewDestination();
   
+  
   //Initialize/Load images 
-  PJimage = loadImage("PJ.png");
+  PJimage = loadImage("idle.png");
+  fondito = loadImage("background.jpg"); //no se porque si se pone el fondo en background espolota xd
+  
 }
 
 //Escena inicial
 void startDraw(){
   background(255);
+  image(fondito, 0, 0);
+  fondito.resize(width, height);
   textFont(titulo);
   textAlign(CENTER, CENTER);
   fill(0);
@@ -43,6 +48,7 @@ void startDraw(){
   textSize(75);
   text(N, width/2, height/2+30);
   startButton.drawButton();
+  text("Presiona M(Ratón) o K(Teclado) para cambiar el movimiento", 800, 800);
 }
 
 void gameSetup(){
@@ -71,10 +77,16 @@ void draw(){
     
   background(0);
   //Pintar el PJ
+ 
+  
   image(PJimage, mouseX, mouseY);
-  PJimage.resize(50, 90);
+  PJimage.resize(40, 48);
+  
+  
   //fill(#AA514E);
   //ellipse(player.x, player.y, 30.0, 30.0);
+  
+  
   
   drawNPCs();
   drawEnemies();
@@ -82,11 +94,13 @@ void draw(){
   moveEnemies();
   drawObstacles();
   
+  
+  //Contador de tiempo restante de partida
   if(millis()-currentTime >= 1000){
     timeLeft--;
     currentTime = millis();
   }
-  text(timeLeft/60+":"+timeLeft%60,800,800);
+  text(timeLeft/60+":"+timeLeft%60,1000,50);
   }
 }
 //Otras funciones
