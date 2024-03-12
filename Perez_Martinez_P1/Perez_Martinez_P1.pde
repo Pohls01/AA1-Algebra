@@ -22,6 +22,8 @@ void setup(){
   //size(1800, 1200);
   fullScreen();
   
+  
+  
   setupInputs();
   titulo = createFont("Cyberpunks Italic.ttf", 50);
   //color de fondo
@@ -46,9 +48,17 @@ void startDraw(){
   fill(0);
   text("Introduce the number of enemies", width/2, height/2-50);
   textSize(75);
+   
+  
+  
   text(N, width/2, height/2+30);
   startButton.drawButton();
-  text("Presiona M(Ratón) o K(Teclado) para cambiar el movimiento", 800, 800);
+ 
+ textSize(30);
+ textAlign(CENTER);
+ text("Presiona M(Ratón) o K(Teclado) para cambiar el movimiento", 900, 800);
+ 
+ 
 }
 
 void gameSetup(){
@@ -100,6 +110,7 @@ void draw(){
     timeLeft--;
     currentTime = millis();
   }
+  textSize(70);
   text(timeLeft/60+":"+timeLeft%60,1000,50);
   }
 }
