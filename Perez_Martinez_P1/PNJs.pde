@@ -31,7 +31,7 @@ void drawNPCs(){
   
   //Se dibuja el NPC1
   fill(#C78DA3);
-  ellipse(xNPC, yNPC, 20, 20);
+  image(PNJsimage, xNPC, yNPC);
   
   //Se obtiene el ángulo entre el NPC1 y el NPC2
   angleNPC2 = atan(abs(yNPC-yNPC2)/abs(xNPC-xNPC2));
@@ -42,7 +42,7 @@ void drawNPCs(){
   
   //Se dibuja el NPC2
   fill(#FBD2C1);
-  ellipse(xNPC2, yNPC2, 20, 20);
+  image(PNJsimage, xNPC2, yNPC2);
 }
 
 //La función signum devuelve +1 o -1 en función del signo del número pasado como parámetro. Devuelve 0 si el número es 0

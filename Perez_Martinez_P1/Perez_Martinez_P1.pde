@@ -12,8 +12,7 @@ int score = 0;
 Player player;
 
 PImage PJimage;
-PImage PNJ1image;
-PImage PNJ2image;
+PImage PNJsimage;
 PImage fondito;
 
 //Set Up - Se ejecuta 1 vez al principio
@@ -21,8 +20,6 @@ void setup(){
   //La ventana
   //size(1800, 1200);
   fullScreen();
-  
-  
   
   setupInputs();
   titulo = createFont("Cyberpunks Italic.ttf", 50);
@@ -32,8 +29,10 @@ void setup(){
   //NewDestination();
   
   
+  
   //Initialize/Load images 
-  PJimage = loadImage("idle.png");
+  PJimage = loadImage("PJ.png");
+  PNJsimage = loadImage("PNJ.png");
   fondito = loadImage("background.jpg"); //no se porque si se pone el fondo en background espolota xd
   
 }
@@ -85,12 +84,11 @@ void draw(){
   }
   else{
     
-  background(0);
+  background(255);
   //Pintar el PJ
- 
+
+image(PJimage, player.x, player.y);
   
-  image(PJimage, mouseX, mouseY);
-  PJimage.resize(40, 48);
   
   
   //fill(#AA514E);
