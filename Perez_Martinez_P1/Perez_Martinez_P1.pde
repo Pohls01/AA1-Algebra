@@ -1,5 +1,6 @@
 //Variables
 boolean inStart = true;
+boolean inBoss = false;
 PFont titulo;
 int N = 0;
 int vidas = 3;
@@ -14,6 +15,7 @@ int lastDamage = 0;
 float followThreshold = 15;
 
 Player player;
+Bullet myBullet;
 
 PImage PJimage;
 PImage PNJsimage;
@@ -60,12 +62,14 @@ void startDraw(){
  
 }
 
+//In Function when startDraw button is pressed
 void gameSetup(){
   InitializeObstaclesPosition();
   player = InitializePlayer();
   npc1 = InitializeNPC1();
   npc2 = InitializeNPC2();
   InitializeEnemies();
+  
   int i = 0;
   for (; i < N/2; i++){
     PassiveEnemy pEnemy = new PassiveEnemy();
@@ -80,19 +84,88 @@ void gameSetup(){
   timeLeft = maxTimeGame;
   currentTime = millis();
   
+  
+   activePowerUp = InitializePowerUp();
+   myBoss = initializeBoss();
+   //myBullet = Bullet.initializeBullets();
+   
 }
+//Boss Set Up Scene
+
+void BossSetUp(){
+circleObstacles = new Obstacle[0];
+rectObstacles = new Obstacle[0];
+
+}
+//Boss Scene
+void bossScene(){
+  background(255);
+//imageMode(CENTER);
+  image(PJimage, player.position.x, player.position.y);
+  player.move();
+  myBoss.move();
+  myBoss.drawBoss();
+
+}
+
 //Draw - Se ejecuta infinitas veces en bucle
 void draw(){
+  //First Scene of the game
   if(inStart){
     startDraw();
   }
   else{
-    
-  background(255);
-  //Pintar el PJ
-imageMode(CENTER);
-image(PJimage, player.position.x, player.position.y);
+    if(timeLeft <= 0 || vidas == 0){
+      background(153);
+      textSize(25);
+  textAlign(CENTER);
+  fill(0);
+  text("HAS MUERTO", width/2, height/2 + 250);
   
+      
+    }
+    else{
+    //Third Scene
+      if(inBoss){
+      bossScene();
+      
+      
+      }
+      //Middle Scene
+      else{
+        
+      background(255);
+      
+      //Pintar el PJ
+      imageMode(CENTER);
+      image(PJimage, player.position.x, player.position.y);
+      
+      
+      
+      //fill(#AA514E);
+      //ellipse(player.x, player.y, 30.0, 30.0);
+      
+      drawEnemies();
+      player.move();
+      
+      drawNPCs();
+     
+      moveEnemies();
+      
+      
+      drawObstacles();
+      
+      activePowerUp.drawPowerUp();
+      
+      
+      //Contador de tiempo restante de partida
+      if(millis()-currentTime >= 1000){
+        timeLeft--;
+        currentTime = millis();
+      }
+      textSize(70);
+      text(timeLeft/60+":"+nf(timeLeft%60,2),width/2,100);
+      }
   
   
   //fill(#AA514E);
@@ -118,5 +191,6 @@ image(PJimage, player.position.x, player.position.y);
   text(timeLeft/60+":"+nf(timeLeft%60,2),width/2,100);
   text(salud + " - " + vidas, 100,100);
   }
+}
 }
 //Otras funciones

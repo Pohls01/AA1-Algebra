@@ -58,12 +58,14 @@ void drawObstacles(){
   rectMode(CENTER);
   fill(0, 255, 0);
   for(int i = 0; i < circleObstacles.length; i++){
+    strokeWeight(0);
     ellipse(circleObstacles[i].position.x, circleObstacles[i].position.y, circleObstacles[i].size.x, circleObstacles[i].size.x);
     }
   
    // drawing the rectangular obstacles
   fill(0, 0, 255);
   for(int i = 0; i <rectObstacles.length; i++){
+    strokeWeight(0);
     rect(rectObstacles[i].position.x, rectObstacles[i].position.y, rectObstacles[i].size.x, rectObstacles[i].size.y);
   }
 }

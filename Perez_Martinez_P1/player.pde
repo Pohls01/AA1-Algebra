@@ -1,3 +1,6 @@
+boolean bulletActive = false; 
+
+
 class Player{
   PVector position;
   float mouseDelay = 0.7;
@@ -7,6 +10,7 @@ class Player{
   float playerSize = 15;
   int playerQuadrant;
   boolean colliding = false;
+  
   void move(){
     
     PVector tempPos = new PVector(position.x,position.y);
@@ -50,6 +54,8 @@ class Player{
        position.y = constrain (tempPos.y, 5, height-5);
      }
    }
+   
+
  }  
 
 Player InitializePlayer(){
@@ -60,3 +66,26 @@ Player InitializePlayer(){
   tempPlayer.playerQuadrant = getQuadrant(tempPlayer.position);
   return tempPlayer;
 }
+
+class Bullet{
+PVector bulletPos;
+int bulletSpeed = 3;
+
+   //Posible manera de cargarse al Boss
+   void initializeBullets(){
+   Bullet myBullet = new Bullet();
+   myBullet.bulletPos = new PVector(player.position.x , player.position.y );
+   myBullet.bulletSpeed= 3;
+   
+   }
+
+}
+   
+   void playerShoot(){
+    Bullet myBullet = new Bullet();
+ myBullet.bulletPos.x=player.direction.x*myBullet.bulletSpeed;
+       fill(0, 255, 0);
+       ellipse(myBullet.bulletPos.x, myBullet.bulletPos.y, 20, 20);
+      
+   
+   }
