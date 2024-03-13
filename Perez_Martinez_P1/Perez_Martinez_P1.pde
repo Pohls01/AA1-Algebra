@@ -9,6 +9,8 @@ int timeLeft;
 int maxTimeGame = 150;
 int score = 0;
 
+float followThreshold = 15;
+
 Player player;
 
 PImage PJimage;
@@ -18,14 +20,12 @@ PImage fondito;
 //Set Up - Se ejecuta 1 vez al principio
 void setup(){
   //La ventana
-  //size(1800, 1200);
-  fullScreen();
+  size(1920, 1080);
+  //fullScreen();
   
   setupInputs();
   titulo = createFont("Cyberpunks Italic.ttf", 50);
   //color de fondo
-  InitializeObstaclesPosition();
-  InitializeEnemies();
   //NewDestination();
   
   
@@ -47,21 +47,23 @@ void startDraw(){
   fill(0);
   text("Introduce the number of enemies", width/2, height/2-50);
   textSize(75);
-   
-  
   
   text(N, width/2, height/2+30);
   startButton.drawButton();
- 
- textSize(25);
- textAlign(CENTER);
- text("         Presiona M (Ratón) o K (Teclado) INGAME para cambiar el movimiento", 900, 800);
   
+  textSize(25);
+  textAlign(CENTER);
+  fill(0);
+  text("Presiona M (Ratón) o K (Teclado) INGAME para cambiar el movimiento", width/2, height/2 + 250);
  
 }
 
 void gameSetup(){
+  InitializeObstaclesPosition();
   player = InitializePlayer();
+  npc1 = InitializeNPC1();
+  npc2 = InitializeNPC2();
+  InitializeEnemies();
   int i = 0;
   for (; i < N/2; i++){
     PassiveEnemy pEnemy = new PassiveEnemy();
@@ -86,8 +88,8 @@ void draw(){
     
   background(255);
   //Pintar el PJ
-
-image(PJimage, player.x, player.y);
+imageMode(CENTER);
+image(PJimage, player.position.x, player.position.y);
   
   
   
@@ -96,9 +98,10 @@ image(PJimage, player.x, player.y);
   
   
   
-  drawNPCs();
+
   drawEnemies();
   player.move();
+  drawNPCs();
   moveEnemies();
   drawObstacles();
   
