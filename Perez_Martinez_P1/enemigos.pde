@@ -2,7 +2,7 @@
 int amountEnemies; // si pongo N no hace nada :')
 float enemySpeed = 3;
 float minEnemySpeed = 0.5;
-float maxEnemySpeed = 3;
+float maxEnemySpeed = 2;
 float minLoopDuration = 1500;
 float maxLoopDuration = 3000;
 

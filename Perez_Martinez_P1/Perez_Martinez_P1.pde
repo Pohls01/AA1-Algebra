@@ -20,8 +20,8 @@ PImage fondito;
 //Set Up - Se ejecuta 1 vez al principio
 void setup(){
   //La ventana
-  size(1920, 1080);
-  //fullScreen();
+  //size(1920, 1080);
+  fullScreen();
   
   setupInputs();
   titulo = createFont("Cyberpunks Italic.ttf", 50);
@@ -112,7 +112,7 @@ image(PJimage, player.position.x, player.position.y);
     currentTime = millis();
   }
   textSize(70);
-  text(timeLeft/60+":"+timeLeft%60,1000,50);
+  text(timeLeft/60+":"+nf(timeLeft%60,2),width/2,100);
   }
 }
 //Otras funciones
