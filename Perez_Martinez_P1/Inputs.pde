@@ -37,7 +37,16 @@ void keyPressed(){
       
     if(key == 'M' || key == 'm'){
       mouseCommandActivated = true; 
-    }   
+    }
+    
+    if(key == 'B' || key == 'b'){
+      inBoss = true; 
+      BossSetUp();
+    }
+    if(key == 'R' || key == 'r'){
+      inStart = true; 
+    }
+    
     if (key=='w' || key=='W')
     keyUp = true;
     if (key=='s' || key=='S')
