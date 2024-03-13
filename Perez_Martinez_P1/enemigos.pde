@@ -38,7 +38,7 @@ class Enemy {
       loopStartTime = millis();
     }
 
-    speedMultiplier =  minEnemySpeed + (1 - (millis() - loopStartTime) / speedLoopDuration) * (maxEnemySpeed-minEnemySpeed);
+    speedMultiplier =  minEnemySpeed + ((millis() - loopStartTime) / speedLoopDuration) * (maxEnemySpeed-minEnemySpeed);
     position.x = constrain(position.x, 10, width - 10);
     position.y = constrain(position.y, 10, height - 10);
   }
