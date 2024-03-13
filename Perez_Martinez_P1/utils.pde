@@ -19,3 +19,24 @@ int getQuadrant(PVector position) {
     else return 3;
   }
 }
+boolean calculateCollisions(PVector pos, float colSize){
+  // Evaluate collisions
+  PVector min_pc = new PVector(pos.x-colSize, pos.y-colSize);
+  PVector max_pc = new PVector(pos.x+colSize, pos.y+colSize);
+  int quadrant = getQuadrant(pos);
+  for(int i = 0; i<amountCircleObstacles;i++){
+    if(circleObstacles[i].obsQuadrant == quadrant){
+      if(sqrt(pow(circleObstacles[i].position.x-pos.x,2) + pow(circleObstacles[i].position.y-pos.y,2)) <= circleObstacles[i].size.x + colSize){
+        return true;
+      }
+    }
+  }
+  for(int i = 0; i<amountRectObstacles;i++){
+    if(rectObstacles[i].obsQuadrant == quadrant){
+      if(!((max_pc.x<rectObstacles[i].min_obs.x)||(max_pc.y<rectObstacles[i].min_obs.y) || (rectObstacles[i].max_obs.x<min_pc.x)||(rectObstacles[i].max_obs.y<min_pc.y))){
+        return true;
+      }
+    }
+  }
+  return false;
+}

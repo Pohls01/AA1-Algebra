@@ -1,11 +1,9 @@
 class Player{
   PVector position;
-  float mouseDelay = 0.8;
-  float playerSpeed = 7.5;
+  float mouseDelay = 0.7;
+  float playerSpeed = 12;
   PVector direction = new PVector(0,0);
   float anglePlayer;
-  PVector min_pc;
-  PVector max_pc;
   float playerSize = 15;
   int playerQuadrant;
   boolean colliding = false;
@@ -41,49 +39,24 @@ class Player{
        if(mouseCommandActivated){
          direction.x = mouseX - tempPos.x;
          direction.y = mouseY - tempPos.y;
-         
+         if(sqrt(pow(direction.x,2) + pow(direction.y,2)) >= followThreshold){
          direction.normalize();
-           tempPos.x += direction.x * playerSpeed;
-           tempPos.y += direction.y * playerSpeed;
-      }
-      if(tempPos != position){
-        if (!calculateCollisions(tempPos)){
-          colliding = true;
-          position.x = constrain (tempPos.x, 5, width-5);
-          position.y = constrain (tempPos.y, 5, height-5);
-        }
-      }
-    }
-    boolean calculateCollisions(PVector pos){
-      // Evaluate collisions
-      boolean tempBool = false;
-      min_pc.x = pos.x-playerSize;
-      min_pc.y = pos.y-playerSize;
-      max_pc.x = pos.x+playerSize;    
-      max_pc.y = pos.y+playerSize;
-      for(int i = 0; i<amountCircleObstacles;i++){
-        if(circleObstacles[i].obsQuadrant == getQuadrant(pos)){
-          if(sqrt(pow(circleObstacles[i].position.x-pos.x,2) + pow(circleObstacles[i].position.y-pos.y,2)) <= circleObstacles[i].size.x + player.playerSize){
-            tempBool = true;
-          }
-        }
-      }
-      for(int i = 0; i<amountRectObstacles;i++){
-        if(rectObstacles[i].obsQuadrant == getQuadrant(pos)){
-          if(!((max_pc.x<rectObstacles[i].min_obs.x)||(max_pc.y<rectObstacles[i].min_obs.y) || (rectObstacles[i].max_obs.x<min_pc.x)||(rectObstacles[i].max_obs.y<min_pc.y))){
-            tempBool = true;
-          }
-        }
-      }
-      return tempBool;
-  }  
-}
+         tempPos.x += direction.x * playerSpeed;
+         tempPos.y += direction.y * playerSpeed;
+       }
+     }
+     if (!calculateCollisions(tempPos, playerSize)){
+       position.x = constrain (tempPos.x, 5, width-5);
+       position.y = constrain (tempPos.y, 5, height-5);
+     }
+   }
+ }  
 
 Player InitializePlayer(){
   Player tempPlayer = new Player();
-  tempPlayer.position = new PVector(mouseX, mouseY);
+  do{
+  tempPlayer.position = new PVector(random(width), random(height));
+  } while(calculateCollisions(tempPlayer.position, tempPlayer.playerSize));
   tempPlayer.playerQuadrant = getQuadrant(tempPlayer.position);
-  tempPlayer.min_pc = new PVector (tempPlayer.position.x-tempPlayer.playerSize,tempPlayer.position.y-tempPlayer.playerSize);
-  tempPlayer.max_pc = new PVector (tempPlayer.position.x+tempPlayer.playerSize,tempPlayer.position.y+tempPlayer.playerSize);  
   return tempPlayer;
 }

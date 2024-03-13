@@ -15,7 +15,6 @@ class Enemy {
   boolean chasingEnemy;
 
   PVector position;
-  int enemyQuadrant;
   Vector2 currDestination = new Vector2();
   Vector2 currDirection = new Vector2();
   float magnitude;
@@ -60,8 +59,8 @@ class PassiveEnemy extends Enemy {
 class ChasingEnemy extends Enemy {
 
   void UpdateDestination() {
-    currDestination.x = xNPC2;
-    currDestination.y = yNPC2;
+    currDestination.x = npc2.position.x;
+    currDestination.y = npc2.position.y;
   }
   void initializeEnemy() {
     position = new PVector(0, random(height));

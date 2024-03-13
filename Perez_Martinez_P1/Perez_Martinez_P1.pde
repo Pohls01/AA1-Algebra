@@ -9,6 +9,8 @@ int timeLeft;
 int maxTimeGame = 150;
 int score = 0;
 
+float followThreshold = 15;
+
 Player player;
 
 PImage PJimage;
@@ -24,8 +26,6 @@ void setup(){
   setupInputs();
   titulo = createFont("Cyberpunks Italic.ttf", 50);
   //color de fondo
-  InitializeObstaclesPosition();
-  InitializeEnemies();
   //NewDestination();
   
   
@@ -59,7 +59,11 @@ void startDraw(){
 }
 
 void gameSetup(){
+  InitializeObstaclesPosition();
   player = InitializePlayer();
+  npc1 = InitializeNPC1();
+  npc2 = InitializeNPC2();
+  InitializeEnemies();
   int i = 0;
   for (; i < N/2; i++){
     PassiveEnemy pEnemy = new PassiveEnemy();
@@ -94,9 +98,10 @@ image(PJimage, player.position.x, player.position.y);
   
   
   
-  drawNPCs();
+
   drawEnemies();
   player.move();
+  drawNPCs();
   moveEnemies();
   drawObstacles();
   
