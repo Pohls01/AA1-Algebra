@@ -9,3 +9,13 @@ char charUpper(char c){
   }
   return c;
 }
+
+int getQuadrant(PVector position) {
+  if (position.x<width/2.0) {
+    if (position.y<height/2.0) return 1;
+    else return 4;
+  } else {
+    if (position.y<height/2.0) return 2;
+    else return 3;
+  }
+}

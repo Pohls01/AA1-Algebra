@@ -14,8 +14,7 @@ ArrayList<ChasingEnemy> cEnemies = new ArrayList<ChasingEnemy>();
 class Enemy {
   boolean chasingEnemy;
 
-  float x;
-  float y;
+  PVector position;
   int enemyQuadrant;
   Vector2 currDestination = new Vector2();
   Vector2 currDirection = new Vector2();
@@ -27,12 +26,12 @@ class Enemy {
 
   void move() {
 
-    magnitude = dist(currDestination.x, currDestination.y, x, y);
-    currDirection.x = (currDestination.x - x) / magnitude;
-    currDirection.y = (currDestination.y - y) / magnitude;
+    magnitude = dist(currDestination.x, currDestination.y, position.x, position.y);
+    currDirection.x = (currDestination.x - position.x) / magnitude;
+    currDirection.y = (currDestination.y - position.y) / magnitude;
 
-    x += currDirection.x * enemySpeed * speedMultiplier;
-    y += currDirection.y * enemySpeed * speedMultiplier;
+    position.x += currDirection.x * enemySpeed * speedMultiplier;
+    position.y += currDirection.y * enemySpeed * speedMultiplier;
 
     if (millis() > loopStartTime + speedLoopDuration) {
       speedMultiplier = minEnemySpeed;
@@ -40,8 +39,8 @@ class Enemy {
     }
 
     speedMultiplier =  minEnemySpeed + (1 - (millis() - loopStartTime) / speedLoopDuration) * (maxEnemySpeed-minEnemySpeed);
-    x = constrain(x, 10, width - 10);
-    y = constrain(y, 10, height - 10);
+    position.x = constrain(position.x, 10, width - 10);
+    position.y = constrain(position.y, 10, height - 10);
   }
 }
 
@@ -51,8 +50,7 @@ class PassiveEnemy extends Enemy {
     currDestination.y = random(15, height - 15);
   }
   void initializeEnemy() {
-    x = 0;
-    y = random(height);
+    position = new PVector(0, random(height));
     speedLoopDuration = random(minLoopDuration, maxLoopDuration);
     loopStartTime = millis();
     GetNewDestination();
@@ -66,8 +64,7 @@ class ChasingEnemy extends Enemy {
     currDestination.y = yNPC2;
   }
   void initializeEnemy() {
-    x = 0;
-    y = random(height);
+    position = new PVector(0, random(height));
     speedLoopDuration = random(minLoopDuration, maxLoopDuration);
     loopStartTime = millis();
     UpdateDestination();
@@ -89,25 +86,17 @@ void InitializeEnemies() {
 
   //Inicializar un punto de destino para los enemigos
 }
-int getQuadrant(Enemy enemy) {
-  if (enemy.x<width/2.0) {
-    if (enemy.y<height/2.0) return 1;
-    else return 4;
-  } else {
-    if (enemy.y<height/2.0) return 2;
-    else return 3;
-  }
-}
+
 
 void drawEnemies() {
   fill(255, 0, 0);
   for (int i = 0; i < pEnemies.size(); i++) {
     PassiveEnemy enemy = pEnemies.get(i);
-    ellipse(enemy.x, enemy.y, 20, 20);
+    ellipse(enemy.position.x, enemy.position.y, 20, 20);
   }
   for (int i = 0; i < cEnemies.size(); i++) {
     ChasingEnemy enemy = cEnemies.get(i);
-    ellipse(enemy.x, enemy.y, 20, 20);
+    ellipse(enemy.position.x, enemy.position.y, 20, 20);
   }
 }
 

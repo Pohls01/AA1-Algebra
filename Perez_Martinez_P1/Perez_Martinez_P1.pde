@@ -24,7 +24,7 @@ void setup(){
   setupInputs();
   titulo = createFont("Cyberpunks Italic.ttf", 50);
   //color de fondo
-  //InitializeObstaclesPosition();
+  InitializeObstaclesPosition();
   InitializeEnemies();
   //NewDestination();
   
@@ -85,7 +85,7 @@ void draw(){
   background(255);
   //Pintar el PJ
 imageMode(CENTER);
-image(PJimage, player.x, player.y);
+image(PJimage, player.position.x, player.position.y);
   
   
   
@@ -98,7 +98,7 @@ image(PJimage, player.x, player.y);
   drawEnemies();
   player.move();
   moveEnemies();
-  //drawObstacles();
+  drawObstacles();
   
   
   //Contador de tiempo restante de partida
