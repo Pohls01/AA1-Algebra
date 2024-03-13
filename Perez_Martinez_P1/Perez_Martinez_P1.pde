@@ -8,6 +8,8 @@ int currentTime;
 int timeLeft;
 int maxTimeGame = 150;
 int score = 0;
+int gracePeriod = 1000;
+int lastDamage = 0;
 
 float followThreshold = 15;
 
@@ -101,8 +103,8 @@ image(PJimage, player.position.x, player.position.y);
 
   drawEnemies();
   player.move();
-  drawNPCs();
   moveEnemies();
+  drawNPCs();
   drawObstacles();
   
   
@@ -112,7 +114,9 @@ image(PJimage, player.position.x, player.position.y);
     currentTime = millis();
   }
   textSize(70);
+  fill(0);
   text(timeLeft/60+":"+nf(timeLeft%60,2),width/2,100);
+  text(salud + " - " + vidas, 100,100);
   }
 }
 //Otras funciones

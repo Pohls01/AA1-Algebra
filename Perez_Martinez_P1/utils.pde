@@ -46,3 +46,24 @@ int GetRandomSign(){
   if(tempInt<0) return -1;
   else return 1;
 }
+
+boolean enemyCollide(PVector pos, float colSize){
+  int quadrant = getQuadrant(pos);
+  for(int i = 0; i<pEnemies.size();i++){
+    PassiveEnemy enemy = pEnemies.get(i);
+    if(quadrant == getQuadrant(enemy.position)){
+      if(sqrt(pow(enemy.position.x-pos.x,2) + pow(enemy.position.y-pos.y,2)) <= enemy.enemyColSize + colSize){
+        return true;
+      }
+    }
+  }
+    for(int i = 0; i<cEnemies.size();i++){
+    ChasingEnemy enemy = cEnemies.get(i);
+    if(quadrant == getQuadrant(enemy.position)){
+      if(sqrt(pow(enemy.position.x-pos.x,2) + pow(enemy.position.y-pos.y,2)) <= enemy.enemyColSize + colSize){
+        return true;
+      }
+    }
+  }
+  return false;
+}

@@ -13,7 +13,8 @@ ArrayList<ChasingEnemy> cEnemies = new ArrayList<ChasingEnemy>();
 
 class Enemy {
   boolean chasingEnemy;
-
+  boolean deviating = false;
+  float enemyColSize = 15;
   PVector position;
   Vector2 currDestination = new Vector2();
   Vector2 currDirection = new Vector2();
@@ -22,24 +23,45 @@ class Enemy {
   float speedLoopDuration;
   float loopStartTime;
 
+  void GetNewDestination() {
+  }
 
   void move() {
-
+    PVector tempPos = new PVector (position.x, position.y);
     magnitude = dist(currDestination.x, currDestination.y, position.x, position.y);
+
     currDirection.x = (currDestination.x - position.x) / magnitude;
     currDirection.y = (currDestination.y - position.y) / magnitude;
 
-    position.x += currDirection.x * enemySpeed * speedMultiplier;
-    position.y += currDirection.y * enemySpeed * speedMultiplier;
-
+    //PVector checkVector = new PVector (tempPos.x,tempPos.y);
+    //checkVector.x += currDirection.x * enemySpeed * speedMultiplier;
+    //checkVector.y += currDirection.y * enemySpeed * speedMultiplier;
+    tempPos.x += currDirection.x * enemySpeed * speedMultiplier;
+    tempPos.y += currDirection.y * enemySpeed * speedMultiplier;
+    if (deviating) {
+      //tempPos.x -= currDirection.x * enemySpeed * maxEnemySpeed;
+      //tempPos.y -= currDirection.y * enemySpeed * maxEnemySpeed;
+      if (dist(currDestination.x, currDestination.y, position.x, position.y) < 10) {
+        deviating = false;
+      }
+    }
     if (millis() > loopStartTime + speedLoopDuration) {
       speedMultiplier = minEnemySpeed;
       loopStartTime = millis();
     }
-
     speedMultiplier =  minEnemySpeed + ((millis() - loopStartTime) / speedLoopDuration) * (maxEnemySpeed-minEnemySpeed);
-    position.x = constrain(position.x, 10, width - 10);
-    position.y = constrain(position.y, 10, height - 10);
+    if (!calculateCollisions(tempPos, enemyColSize)) {
+      position.x = constrain(tempPos.x, 10, width - 10);
+      position.y = constrain(tempPos.y, 10, height - 10);
+    } else {
+      if (!chasingEnemy) {
+        GetNewDestination();
+      } else if (!deviating) {
+        deviating = true;
+        currDestination.x = position.x - currDirection.x * 120;
+        currDestination.y = position.y - currDirection.y * 120;
+      }
+    }
   }
 }
 
@@ -63,10 +85,13 @@ class ChasingEnemy extends Enemy {
     currDestination.y = npc2.position.y;
   }
   void initializeEnemy() {
+    chasingEnemy = true;
     position = new PVector(0, random(height));
     speedLoopDuration = random(minLoopDuration, maxLoopDuration);
     loopStartTime = millis();
-    UpdateDestination();
+    if (!deviating) {
+      UpdateDestination();
+    }
   }
 }
 
@@ -111,7 +136,9 @@ void moveEnemies() {
   }
   for (int i = 0; i < cEnemies.size(); i++) {
     ChasingEnemy enemy = cEnemies.get(i);
-    enemy.UpdateDestination();
+    if (!enemy.deviating) {
+      enemy.UpdateDestination();
+    }
     enemy.move();
   }
 

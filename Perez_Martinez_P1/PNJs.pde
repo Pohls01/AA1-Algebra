@@ -9,12 +9,14 @@ NPC npc1;
 NPC npc2;
 
 class NPC{
-  //boolean takesDamage;
+  boolean takesDamage;
+  boolean deviating;
   PVector position;
   float alpha = 0.075;
   float npcColSize = 15;
   float offset;
   float speed;
+  int unstuckTime;
   PVector targetPoint = new PVector(0,0);
   
   void getTargetPoint(PVector target){
@@ -25,41 +27,67 @@ class NPC{
   }
   
   void move(PVector target){
+    if(enemyCollide(position,npcColSize)){
+      checkDamage(20);
+    }
+    if(!deviating){
     getTargetPoint(target);
+    }
     PVector tempPos = new PVector(position.x, position.y);
     PVector direction = new PVector(targetPoint.x-position.x,targetPoint.y-position.y);
-    if(sqrt(pow(direction.x,2) + pow(direction.y,2)) > followThreshold /*&& sqrt(pow(direction.x,2) + pow(direction.y,2)) > offset*/){
-    direction.normalize();
-    tempPos.x += direction.x * speed;
-    tempPos.y += direction.y * speed;
-    if(!calculateCollisions(tempPos, npcColSize)){  
-      position.x = constrain (tempPos.x, 5, width-5);
-      position.y = constrain (tempPos.y, 5, height-5);
+    if(deviating && (dist(position.x, position.y, targetPoint.x, targetPoint.y) < 10 || millis() - 500 > unstuckTime)){
+      deviating = false;
     }
+    if(sqrt(pow(direction.x,2) + pow(direction.y,2)) > followThreshold || deviating/*&& sqrt(pow(direction.x,2) + pow(direction.y,2)) > offset*/){
+      direction.normalize();
+      tempPos.x += direction.x * speed;
+      tempPos.y += direction.y * speed;
+      if(!calculateCollisions(tempPos, npcColSize)){  
+        position.x = constrain (tempPos.x, 5, width-5);
+        position.y = constrain (tempPos.y, 5, height-5);
+      }
+      else{
+        if(!deviating){
+          deviating = true;
+          targetPoint.x = position.x-direction.x*100;
+          targetPoint.y = position.y-direction.y*100;
+          unstuckTime = millis();
+        }
+        if(takesDamage){
+          checkDamage(10);
+        } 
+      }
     }
   }
 }
 NPC InitializeNPC1(){
   NPC tempNPC = new NPC();
-  //tempNPC.takesDamage = false;
+  tempNPC.takesDamage = false;
   do{
   tempNPC.position = new PVector(random(width), random(height));
   } while(calculateCollisions(tempNPC.position, tempNPC.npcColSize));
-  tempNPC.offset = 80;
+  tempNPC.offset = 50;
   tempNPC.speed = 10;
   tempNPC.getTargetPoint(player.position);
   return tempNPC;
 }
 NPC InitializeNPC2(){
   NPC tempNPC = new NPC();
-  //tempNPC.takesDamage = false;
+  tempNPC.takesDamage = true;
   do{
   tempNPC.position = new PVector(random(width), random(height));
   } while(calculateCollisions(tempNPC.position, tempNPC.npcColSize));
-  tempNPC.offset = 150;
+  tempNPC.offset = 120;
   tempNPC.speed = 9;
   tempNPC.getTargetPoint(npc1.position);
   return tempNPC;
+}
+
+void checkDamage(int damage){
+  if (millis() - gracePeriod > lastDamage){
+    salud -= damage;
+    lastDamage = millis();
+  }
 }
 
 //float xNPC = width / 2;
