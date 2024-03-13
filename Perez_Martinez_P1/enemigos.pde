@@ -24,7 +24,7 @@ class Enemy {
     float loopStartTime;
     
     void GetNewDestination() {
-}
+    }
     
     void move() {
         PVector tempPos = new PVector(position.x, position.y);
@@ -41,9 +41,9 @@ class Enemy {
         if (deviating) {
             //tempPos.x -= currDirection.x * enemySpeed * maxEnemySpeed;
             //tempPos.y -= currDirection.y * enemySpeed * maxEnemySpeed;
-           if (dist(currDestination.x, currDestination.y, position.x, position.y) < 10) {
+            if (dist(currDestination.x, currDestination.y, position.x, position.y) < 10) {
                 deviating = false;
-        }
+            }
         }
         if (millis() > loopStartTime + speedLoopDuration) {
             speedMultiplier = minEnemySpeed;
@@ -54,28 +54,28 @@ class Enemy {
             position.x = constrain(tempPos.x, 10, width - 10);
             position.y = constrain(tempPos.y, 10, height - 10);
         } else {
-           if (!chasingEnemy) {
+            if (!chasingEnemy) {
                 GetNewDestination();
-        } else if (!deviating) {
+            } else if (!deviating) {
                 deviating = true;
                 currDestination.x = position.x - currDirection.x * 150;
                 currDestination.y = position.y - currDirection.y * 150;
+            }
         }
-        }
-}
+    }
 }
 
 class PassiveEnemy extends Enemy {
     void GetNewDestination() {
         currDestination.x = random(15, width - 15);
         currDestination.y = random(15, height - 15);
-}
+    }
     void initializeEnemy() {
         position = new PVector(0, random(height));
         speedLoopDuration = random(minLoopDuration, maxLoopDuration);
         loopStartTime = millis();
         GetNewDestination();
-}
+    }
 }
 
 class ChasingEnemy extends Enemy {
@@ -83,7 +83,7 @@ class ChasingEnemy extends Enemy {
     void UpdateDestination() {
         currDestination.x = npc2.position.x;
         currDestination.y = npc2.position.y;
-}
+    }
     void initializeEnemy() {
         chasingEnemy = true;
         position = new PVector(0, random(height));
@@ -92,7 +92,7 @@ class ChasingEnemy extends Enemy {
         if (!deviating) {
             UpdateDestination();
         }
-}
+    }
 }
 
 void InitializeEnemies() {
@@ -117,11 +117,11 @@ void drawEnemies() {
     for (int i = 0; i < pEnemies.size(); i++) {
         PassiveEnemy enemy = pEnemies.get(i);
         ellipse(enemy.position.x, enemy.position.y, 20, 20);
-}
+    }
     for (int i = 0; i < cEnemies.size(); i++) {
         ChasingEnemy enemy = cEnemies.get(i);
         ellipse(enemy.position.x, enemy.position.y, 20, 20);
-}
+    }
 }
 
 //Mover a los enemigos a las coordenadas de destino
@@ -133,14 +133,14 @@ void moveEnemies() {
         if (enemy.magnitude < 30) {
             enemy.GetNewDestination();
         }
-}
+    }
     for (int i = 0; i < cEnemies.size(); i++) {
         ChasingEnemy enemy = cEnemies.get(i);
         if (!enemy.deviating) {
             enemy.UpdateDestination();
         }
         enemy.move();
-}
+    }
     
     
     //// Movimiento de dirección a Coordenadas

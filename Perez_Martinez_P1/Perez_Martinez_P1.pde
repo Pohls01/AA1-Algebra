@@ -75,12 +75,12 @@ void gameSetup() {
         PassiveEnemy pEnemy = new PassiveEnemy();
         pEnemy.initializeEnemy();
         pEnemies.add(pEnemy);
-}
+    }
     for (; i < N; i++) {
         ChasingEnemy cEnemy = new ChasingEnemy();
         cEnemy.initializeEnemy();
         cEnemies.add(cEnemy);
-}
+    }
     timeLeft = maxTimeGame;
     currentTime = millis();
     
@@ -94,6 +94,8 @@ void gameSetup() {
 void BossSetUp() {
     circleObstacles = new Obstacle[0];
     rectObstacles = new Obstacle[0];
+    emptyArrayList(pEnemies);
+    emptyArrayList(cEnemies);
     myBoss = initializeBoss();
     
     
@@ -102,19 +104,29 @@ void BossSetUp() {
 void bossScene() {
     background(255);
     //imageMode(CENTER);
-    image(PJimage, player.position.x, player.position.y);
     player.move();
+    image(PJimage, player.position.x, player.position.y);
     myBoss.move();
     myBoss.drawBoss();
+    // bossShoot();
+    
+    textSize(70);
+    fill(0);
+    text(timeLeft / 60 + ":" + nf(timeLeft % 60,2),width / 2,100);
+    textAlign(LEFT);
+    text(salud + " HP - Vidas: " + vidas, 100,100);
+    textAlign(RIGHT);
+    text("Jefe: " + myBoss.health, width - 100, 100);
+    textAlign(CENTER);
     
 }
 
 //Draw - Se ejecuta infinitas veces en bucle
 void draw() {
-    //First Scene of the game
+    // First Scene of thegame
     if (inStart) {
         startDraw();
-}
+    }
     else{
         if (timeLeft <= 0 || vidas == 0) {
             background(153);
@@ -128,17 +140,23 @@ void draw() {
         else{
             //Third Scene
             if (inBoss) {
-                bossScene();
-                
-                
-        }
+                if (bossKilled) {
+                    background(153);
+                    textSize(25);
+                    textAlign(CENTER);
+                    fill(0);
+                    text("HAS GANADO", width / 2, height / 2 + 250);
+                }
+                else{
+                    bossScene();
+                }
+            }
             //Middle Scene
-        else{
+            else{
                 
                 background(255);
                 
                 activePowerUp.drawPowerUp();
-                text(activePowerUp.description, width / 2, height - 100);
                 
                 drawEnemies();
                 player.move();
@@ -155,40 +173,36 @@ void draw() {
                 image(PJimage, player.position.x, player.position.y);
                 
                 
-                //Contadorde tiempo restante de partida
+                //Contadorde tiempo restantede partida
                 if (millis() - currentTime >= 1000) {
                     timeLeft--;
                     currentTime = millis();
-            }
+                }
                 textSize(70);
+                fill(0);
                 text(timeLeft / 60 + ":" + nf(timeLeft % 60,2),width / 2,100);
-        }
+                textAlign(LEFT);
+                text(activePowerUp.description, width / 2, height - 100);
+                text("PowerUps: " + powerUpCount, 100, height - 100);
+                text(salud + " HP - Vidas: " + vidas, 100,100);
+                textAlign(CENTER);
+                if (powerUpCount >= 5) {
+                    inBoss = true; 
+                    bulletActive = true;
+                    BossSetUp();
+                }
+            }
             
             
             //fill(#AA514E);
             //ellipse(player.x, player.y, 30.0, 30.0);
-            
-            
-            
-            
-            drawEnemies();
-            player.move();
-            moveEnemies();
-            drawNPCs();
-            drawObstacles();
-            
             
             //Contadorde tiempo restante de partida
             if (millis() - currentTime >= 1000) {
                 timeLeft--;
                 currentTime = millis();
             }
-                textSize(70);
-                fill(0);
-                text(timeLeft / 60 + ":" + nf(timeLeft % 60,2),width / 2,100);
-               text(salud + "- " + vidas, 100,100);
-            }
-            }
-            }
-                //Otras funciones
-                
+            
+        }
+    }
+}

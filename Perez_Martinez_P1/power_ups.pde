@@ -3,6 +3,7 @@ boolean playerCollisionPU;
 powerUp activePowerUp;
 int powerUpCount = 0;
 int lastPowerUp = 0;
+boolean checkingTime = false;
 
 
 class powerUp{
@@ -26,13 +27,13 @@ class powerUp{
     }
     
     void PowerUpExtraLife() {
-        vidas += 1;
+        vidas ++;
         description = "Life Up!";
         
     }
     
     void PowerUpMoreTime() {
-        currentTime += 60 * 1000;
+        timeLeft += 60;
         description = "Extra Time!";
         
     }
@@ -48,11 +49,18 @@ class powerUp{
         description = "Enemies Frozen!";
         
     }
+    void ResetPowerUp() {
+        player.playerSpeed = 10;
+        npc1.speed = 9;
+        npc2.speed = 9;
+        enemySpeed = 2.5;
+        description = "";
+    }
     
     //Función para obtener un power up aleatorio
     void GenerateRandomPowerUP() {
         int powerUp = (int)random(1, 7);
-        
+        ResetPowerUp();
         switch(powerUp) {
             case 1 : PowerUpAumentoVelocidad();
                 break;
@@ -68,25 +76,36 @@ class powerUp{
                 break;
             
         }  
-        
+        powerUpCount++;
+        lastPowerUp = millis();
+        checkingTime = true;
+        position.x = -200;
     }
     
     void drawPowerUp() {  
-        //for (int counter = 0; counter < 5; counter++){
-        
-        stroke(153);
-        strokeWeight(4);
-        fill(colorPU);
-        rect(position.x, position.y, size.x, size.y); 
-        
-        
+        if (!checkingTime) {
+            //for (int counter = 0; counter < 5; counter++){
+            stroke(153);
+            strokeWeight(4);
+            fill(colorPU);
+            rect(position.x, position.y, size.x, size.y); 
+        }
+        else{
+            if (millis() - duration * 1000>lastPowerUp) {
+                checkingTime = false;
+                ResetPowerUp();
+                position = new PVector(random(100,width - 100), random(100,height - 100));
+                size = new PVector(random(20, 80), random(20, 80));
+                colorPU = color(random(256), random(256), random(256));
+            }
+        }
     }
 }
 
 
 powerUp InitializePowerUp() {
     powerUp myPowerUp = new powerUp();
-    myPowerUp.position = new PVector(random(width), random(height));
+    myPowerUp.position = new PVector(random(100,width - 100), random(100,height - 100));
     myPowerUp.size = new PVector(random(20, 80), random(20, 80));
     myPowerUp.colorPU = color(random(256), random(256), random(256));
     return myPowerUp;
@@ -96,5 +115,3 @@ powerUp InitializePowerUp() {
 
 //  text(description, width-200, height-100);
   //}
-
-

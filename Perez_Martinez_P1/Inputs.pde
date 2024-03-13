@@ -17,10 +17,10 @@ void setupInputs() {
 //Función que se llama al presionar una tecla
 void keyPressed() {
     //Si estamos en la escena inicial y pulsamos un número, se añade al número de enemigos
-    if(inStart) {
+    if (inStart) {
         if (keyChecker(key) == "NUM") {
             //Paraañadir un dígito al final de un número, se multiplica por 10 y se suma el dígito correspondiente a la tecla pulsada
-            N = (N* 10) + (int(key) - '0');
+            N = (N * 10) + (int(key) - '0');
             //Se limita el número de enemigos máximo a 100
             if (N > 100) {N = 100;}
         }
@@ -28,7 +28,7 @@ void keyPressed() {
         if (key == BACKSPACE) {
             N /= 10;
         }
-}
+    }
     //Comprobación de los comandos activados
     else{
         if (key == 'K' || key == 'k') {
@@ -40,7 +40,7 @@ void keyPressed() {
         }
         
         if (key == 'B' || key == 'b') {
-            inBoss= true; 
+            inBoss = true; 
             bulletActive = true;
             BossSetUp();
         }
@@ -55,8 +55,8 @@ void keyPressed() {
         if (key ==  'a' || key ==  'A')
             keyLeft = true;
         if (key ==  'd' || key ==  'D')
-            keyRight= true;
-}
+            keyRight = true;
+    }
 }
 void keyReleased() {
     if (key ==  'w' || key ==  'W')
@@ -69,20 +69,15 @@ void keyReleased() {
         keyRight = false;
 }
 
-//Función que se llama al hacer clic con el ratón
+//Función que sellama al hacer clic con el ratón
 void mousePressed() {
     //Si estamos en la escena inicial y hacemos clic sobre el botón de inicio, se desactiva la escena inicial
-    if(inStart) {
+    if (inStart) {
         if (startButton.overButton()) {
             inStart = false;
             gameSetup();
         }
-}
-    else if (inBoss) {
-        if (mouseButton == LEFT) { 
-            playerShoot();
     }
-}
 }
 
 //Clase que define todos los elementos que puede tener un botón, definiendo valores por defecto para algunos parámetros
@@ -104,12 +99,12 @@ class Button{
     boolean overButton() {
         if (mouseX >= x - sizeX / 2 && mouseX <= x + sizeX / 2 && 
             mouseY >= y - sizeY / 2 && mouseY <= y + sizeY / 2) {
-            returntrue;
+            return true;
         } 
         else{
             return false;
         }
-}
+    }
     
     //Esta función dibuja el botón, teniendo en cuenta los parámetros asignados, y si el cursor está sobre el o no para resaltarlo
     void drawButton() {
@@ -133,18 +128,18 @@ class Button{
             fill(tempTextCol);
             text(butText, x, y);
         }
-}
+    }
 }
 
 //Esta función procesa la tecla recibida en el keyPressed e indica de qué tipo de tecla se trata
 String keyChecker(char c) {
-    if(c >= '0' && c <= '9') {
+    if (c >= '0' && c <= '9') {
         return "NUM";
-}
+    }
     else if ((c >=  'A' && c <=  'Z') || (c >= 'a' && c <= 'z')) {
         return "LET";
-}
+    }
     else {
         return "OTH";
-}
+    }
 }
