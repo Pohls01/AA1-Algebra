@@ -13,6 +13,7 @@ int score = 0;
 float followThreshold = 15;
 
 Player player;
+Bullet myBullet;
 
 PImage PJimage;
 PImage PNJsimage;
@@ -84,6 +85,7 @@ void gameSetup(){
   
    activePowerUp = InitializePowerUp();
    myBoss = initializeBoss();
+   //myBullet = Bullet.initializeBullets();
    
 }
 //Boss Set Up Scene
@@ -101,9 +103,6 @@ void bossScene(){
   player.move();
   myBoss.move();
   myBoss.drawBoss();
-  
-  
-  
 
 }
 
@@ -113,46 +112,60 @@ void draw(){
   if(inStart){
     startDraw();
   }
-  //Third Scene
-  else if(inBoss){
-  bossScene();
-  
-  
-  }
-  //Middle Scene
   else{
-    
-  background(255);
+    if(timeLeft <= 0 || vidas == 0){
+      background(153);
+      textSize(25);
+  textAlign(CENTER);
+  fill(0);
+  text("HAS MUERTO", width/2, height/2 + 250);
   
-  //Pintar el PJ
-  imageMode(CENTER);
-  image(PJimage, player.position.x, player.position.y);
+      
+    }
+    else{
+    //Third Scene
+      if(inBoss){
+      bossScene();
+      
+      
+      }
+      //Middle Scene
+      else{
+        
+      background(255);
+      
+      //Pintar el PJ
+      imageMode(CENTER);
+      image(PJimage, player.position.x, player.position.y);
+      
+      
+      
+      //fill(#AA514E);
+      //ellipse(player.x, player.y, 30.0, 30.0);
+      
+      drawEnemies();
+      player.move();
+      
+      drawNPCs();
+     
+      moveEnemies();
+      
+      
+      drawObstacles();
+      
+      activePowerUp.drawPowerUp();
+      
+      
+      //Contador de tiempo restante de partida
+      if(millis()-currentTime >= 1000){
+        timeLeft--;
+        currentTime = millis();
+      }
+      textSize(70);
+      text(timeLeft/60+":"+nf(timeLeft%60,2),width/2,100);
+      }
   
-  
-  
-  //fill(#AA514E);
-  //ellipse(player.x, player.y, 30.0, 30.0);
-  
-  drawEnemies();
-  player.move();
-  
-  drawNPCs();
- 
-  moveEnemies();
-  
-  
-  drawObstacles();
-  
-  activePowerUp.drawPowerUp();
-  
-  
-  //Contador de tiempo restante de partida
-  if(millis()-currentTime >= 1000){
-    timeLeft--;
-    currentTime = millis();
   }
-  textSize(70);
-  text(timeLeft/60+":"+nf(timeLeft%60,2),width/2,100);
-  }
+}
 }
 //Otras funciones

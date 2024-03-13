@@ -41,6 +41,7 @@ void keyPressed(){
     
     if(key == 'B' || key == 'b'){
       inBoss = true; 
+      bulletActive = true;
       BossSetUp();
     }
     if(key == 'R' || key == 'r'){
@@ -76,6 +77,11 @@ void mousePressed(){
       inStart = false;
       gameSetup();
     }
+  }
+  else if(inBoss){
+       if(mouseButton == LEFT){ 
+       playerShoot();
+       }
   }
 }
 

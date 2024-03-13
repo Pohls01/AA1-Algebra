@@ -1,15 +1,14 @@
 Boss myBoss;
 
-float bossSpeed = 2;
+float bossSpeed = 3;
+
 
 class Boss {
   PVector position;
   Vector2 currDestination = new Vector2();
   Vector2 currDirection = new Vector2();
   float magnitude;
-  //float speedMultiplier;
-  //float speedLoopDuration;
-  //float loopStartTime;
+  
 
 
   void move() {
@@ -24,24 +23,14 @@ class Boss {
 
     position.x += currDirection.x * bossSpeed;
     position.y += currDirection.y * bossSpeed;
-
-  //  if (millis() > loopStartTime + speedLoopDuration) {
-  //    speedMultiplier = minEnemySpeed;
-  //    loopStartTime = millis();
-  //  }
-
-  //  speedMultiplier =  minEnemySpeed + ((millis() - loopStartTime) / speedLoopDuration) * (maxEnemySpeed-minEnemySpeed);
-  //  position.x = constrain(position.x, 10, width - 10);
-  //  position.y = constrain(position.y, 10, height - 10);
-  //}
- 
     
   }
   
   
   void drawBoss() {
+    stroke(0);
     fill(0, 0, 0);
-    ellipse(myBoss.position.x, myBoss.position.y, 100, 100);
+    ellipse(myBoss.position.x, myBoss.position.y, 200, 200);
 }
 
 }
