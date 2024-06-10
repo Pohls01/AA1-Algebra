@@ -11,6 +11,8 @@ class Player{
     int playerQuadrant;
     boolean colliding = false;
 
+   
+
     void eatEnemies() {
         for (int i = pEnemies.size() - 1; i >= 0; i--) {
             PassiveEnemy enemy = pEnemies.get(i);

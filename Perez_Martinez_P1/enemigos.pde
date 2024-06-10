@@ -116,11 +116,11 @@ void drawEnemies() {
     fill(255, 0, 0);
     for (int i = 0; i < pEnemies.size(); i++) {
         PassiveEnemy enemy = pEnemies.get(i);
-        ellipse(enemy.position.x, enemy.position.y, 20, 20);
+        image(enemies, enemy.position.x, enemy.position.y);
     }
     for (int i = 0; i < cEnemies.size(); i++) {
         ChasingEnemy enemy = cEnemies.get(i);
-        ellipse(enemy.position.x, enemy.position.y, 20, 20);
+        image(enemies, enemy.position.x, enemy.position.y);
     }
 }
 

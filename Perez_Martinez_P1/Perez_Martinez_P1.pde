@@ -19,7 +19,11 @@ Bullet myBullet;
 
 PImage PJimage;
 PImage PNJsimage;
+PImage enemies;
+PImage circularobstacle, rectobstacle;
 PImage fondito, gateopen, gateclosed;
+
+
 
 //Set Up - Se ejecuta 1 vez al principio
 void setup() {
@@ -37,19 +41,22 @@ void setup() {
     //Initialize/Load images 
     PJimage = loadImage("PJ.png");
     PNJsimage = loadImage("PNJ.png");
-    fondito = loadImage("background.jpg"); //no se porque si se pone el fondo en background espolota xd
+    enemies = loadImage("enemy.png");
+    circularobstacle = loadImage("circleobstacle.png");
+    rectobstacle = loadImage("rectangleobstacle.png");
+    fondito = loadImage("background.png"); //no se porque si se pone el fondo en background espolota xd
     gateopen = loadImage("gateopen.png");
     gateclosed = loadImage("gateclosed.png");
 }
 
 //Escena inicial
 void startDraw() {
-    background(255);
+    //background(255);
     image(fondito, 0, 0);
     fondito.resize(width, height);
     textFont(titulo);
     textAlign(CENTER, CENTER);
-    fill(0);
+    fill(255);
     text("Introduce the number of enemies", width / 2, height / 2 - 50);
     textSize(75);
     
@@ -58,7 +65,7 @@ void startDraw() {
     
     textSize(25);
     textAlign(CENTER);
-    fill(0);
+    fill(255);
     text("Presiona M (Ratón) o K (Teclado) INGAME para cambiar el movimiento", width / 2, height / 2 + 250);
     
 }
@@ -88,6 +95,8 @@ void gameSetup() {
     
     activePowerUp = InitializePowerUp();
     //myBullet = Bullet.initializeBullets();
+
+    
     
 }
 //Boss Set Up Scene
@@ -103,7 +112,7 @@ void BossSetUp() {
 }
 //Boss Scene
 void bossScene() {
-    background(255);
+    background(gateopen);
     //imageMode(CENTER);
     player.move();
     image(PJimage, player.position.x, player.position.y);
@@ -156,7 +165,21 @@ void draw() {
             else{
                 if(powerUpCount >= 5){
                      background(gateopen);
-                     
+
+                    PVector obstaclePosition = new PVector(510, 0);
+                    PVector obstacleSize = new PVector(100, 200);
+
+                    //Deteccion de la colision del Portal
+                    fill(255, 0, 0);
+                    rect(obstaclePosition.x, obstaclePosition.y, obstacleSize.x, obstacleSize.y);
+                    if (collideEntities(player.position, player.playerSize, obstaclePosition, 200)){
+                        //Booleano para cambiar de escena a BOSS
+                        inBoss = true;
+                        bulletActive = true;
+                        BossSetUp();
+                    }
+
+                    
                 }
                 else{
                 background(gateclosed);
@@ -192,11 +215,7 @@ void draw() {
                 text("PowerUps: " + powerUpCount, 100, height - 100);
                 text(salud + " HP - Vidas: " + vidas, 100,100);
                 textAlign(CENTER);
-                if (powerUpCount >= 5) {
-                    //inBoss = true; 
-                    bulletActive = true;
-                    //BossSetUp();
-                }
+                
             }
             
             
