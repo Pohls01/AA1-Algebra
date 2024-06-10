@@ -19,7 +19,7 @@ Bullet myBullet;
 
 PImage PJimage;
 PImage PNJsimage;
-PImage fondito;
+PImage fondito, gateopen, gateclosed;
 
 //Set Up - Se ejecuta 1 vez al principio
 void setup() {
@@ -38,7 +38,8 @@ void setup() {
     PJimage = loadImage("PJ.png");
     PNJsimage = loadImage("PNJ.png");
     fondito = loadImage("background.jpg"); //no se porque si se pone el fondo en background espolota xd
-    
+    gateopen = loadImage("gateopen.png");
+    gateclosed = loadImage("gateclosed.png");
 }
 
 //Escena inicial
@@ -153,8 +154,13 @@ void draw() {
             }
             //Middle Scene
             else{
-                
-                background(255);
+                if(powerUpCount >= 5){
+                     background(gateopen);
+                     
+                }
+                else{
+                background(gateclosed);
+                }
                 
                 activePowerUp.drawPowerUp();
                 
@@ -187,9 +193,9 @@ void draw() {
                 text(salud + " HP - Vidas: " + vidas, 100,100);
                 textAlign(CENTER);
                 if (powerUpCount >= 5) {
-                    inBoss = true; 
+                    //inBoss = true; 
                     bulletActive = true;
-                    BossSetUp();
+                    //BossSetUp();
                 }
             }
             

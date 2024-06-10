@@ -10,6 +10,21 @@ class Player{
     float playerSize = 15;
     int playerQuadrant;
     boolean colliding = false;
+
+    void eatEnemies() {
+        for (int i = pEnemies.size() - 1; i >= 0; i--) {
+            PassiveEnemy enemy = pEnemies.get(i);
+            if (collideEntities(position, playerSize, enemy.position, enemy.enemyColSize)) {
+                pEnemies.remove(i);
+            }
+        }
+        for (int i = cEnemies.size() - 1; i >= 0; i--) {
+            ChasingEnemy enemy = cEnemies.get(i);
+            if (collideEntities(position, playerSize, enemy.position, enemy.enemyColSize)) {
+                cEnemies.remove(i);
+            }
+        }
+    }
     
     void move() {
         
@@ -57,6 +72,8 @@ class Player{
             position.x = constrain(tempPos.x, 5, width - 5);
             position.y = constrain(tempPos.y, 5, height - 5);
         }
+
+        eatEnemies();
     }
     
     
