@@ -17,6 +17,48 @@ class Obstacle{
     int obsQuadrant;
 }
 
+
+//PARA EVITAR QUE LOS OBSTACULOS SE SUPERPONGAN
+
+// Obstacle InitCircleObstacle() {
+//     Obstacle tempCircle = new Obstacle();
+//     tempCircle.isCircle = true;
+//     do {
+//         tempCircle.position = new PVector(random(width), random(height));
+//     } while (isCollidingWithAnyObstacle(tempCircle));
+//     tempCircle.size = new PVector(20,20);
+//     tempCircle.obsQuadrant = getQuadrant(tempCircle.position);
+//     return tempCircle;
+// }
+
+// Obstacle InitRectObstacle() {
+//     Obstacle tempRect = new Obstacle();
+//     tempRect.isCircle = false;
+//     do {
+//         tempRect.position = new PVector(random(width), random(height));
+//     } while (isCollidingWithAnyObstacle(tempRect));
+//     tempRect.size = new PVector(60,20);
+//     tempRect.min_obs = new PVector(tempRect.position.x - tempRect.size.x / 2, tempRect.position.y - tempRect.size.y / 2); 
+//     tempRect.max_obs = new PVector(tempRect.position.x + tempRect.size.x / 2, tempRect.position.y + tempRect.size.y / 2); 
+//     tempRect.obsQuadrant = getQuadrant(tempRect.position);  
+//     return tempRect;
+// }
+
+// boolean isCollidingWithAnyObstacle(Obstacle newObstacle) {
+//     for (Obstacle obstacle : circleObstacles) {
+//         if (obstacle != null && calculateCollisions(newObstacle.position, newObstacle.size, obstacle.position, obstacle.size)) {
+//             return true;
+//         }
+//     }
+//     for (Obstacle obstacle : rectObstacles) {
+//         if (obstacle != null && calculateCollisions(newObstacle.position, newObstacle.size, obstacle.position, obstacle.size)) {
+//             return true;
+//         }
+//     }
+//     return false;
+// }
+
+
 Obstacle InitCircleObstacle() {
     Obstacle tempCircle = new Obstacle();
     tempCircle.isCircle = true;
@@ -35,6 +77,8 @@ Obstacle InitRectObstacle() {
     tempRect.obsQuadrant = getQuadrant(tempRect.position);  
     return tempRect;
 }
+
+
 //SET UP
 void InitializeObstaclesPosition() {
     //array inicialization for circular obstacles
@@ -63,11 +107,12 @@ void drawObstacles() {
         }
     
     // drawing the rectangular obstacles
-    fill(0, 0, 255);
+    fill(#2F1B0F);
     for (int i = 0; i < rectObstacles.length; i++) {
         strokeWeight(0);
-        image(rectobstacle, rectObstacles[i].position.x, rectObstacles[i].position.y);
+        rect(rectObstacles[i].position.x, rectObstacles[i].position.y, rectObstacles[i].size.x, rectObstacles[i].size.y);
+        //image(rectobstacle, rectObstacles[i].position.x, rectObstacles[i].position.y);
         }
-       //rect(rectObstacles[i].position.x, rectObstacles[i].position.y, rectObstacles[i].size.x, rectObstacles[i].size.y);
+       
 }
     

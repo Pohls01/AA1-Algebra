@@ -11,6 +11,7 @@ NPC npc2;
 class NPC{
     boolean takesDamage;
     boolean deviating;
+    boolean following = false;
     PVector position;
     float alpha = 0.075;
     float npcColSize = 15;
@@ -59,40 +60,42 @@ class NPC{
         }
         }
         }
-        }
-            NPC InitializeNPC1(){
-            NPC tempNPC = new NPC();
-            tempNPC.takesDamage = false;
-        do{
+}
+
+NPC InitializeNPC1(){
+        NPC tempNPC = new NPC();
+        tempNPC.takesDamage = false;
+    do{
         tempNPC.position = new PVector(random(width), random(height));
     } while(calculateCollisions(tempNPC.position, tempNPC.npcColSize));
         tempNPC.offset = 80;
         tempNPC.speed = 9;
         tempNPC.getTargetPoint(player.position);
         return tempNPC;
-    }
-        NPC InitializeNPC2(){
-        NPC tempNPC = new NPC();
-        tempNPC.takesDamage = true;
-        do{
+}
+
+NPC InitializeNPC2(){
+    NPC tempNPC = new NPC();
+    tempNPC.takesDamage = true;
+    do{
         tempNPC.position = new PVector(random(width), random(height));
     } while(calculateCollisions(tempNPC.position, tempNPC.npcColSize));
         tempNPC.offset = 150;
         tempNPC.speed = 8;
         tempNPC.getTargetPoint(npc1.position);
         return tempNPC;
-    }
+}
         
-        void checkDamage(int damage){
-        if (millis() - gracePeriod > lastDamage){
+void checkDamage(int damage){
+    if (millis() - gracePeriod > lastDamage){
         salud -= damage;
-        if(salud <= 0){
+    if(salud <= 0){
         vidas--;
         salud = 100;
     }
-        lastDamage = millis();
+    lastDamage = millis();
     }
-    }
+}
         
         //float xNPC = width / 2;
         //float yNPC = height / 2;
@@ -102,25 +105,37 @@ class NPC{
         //float angleNPC1;
         //float angleNPC2;
         
-        //Pintarlos NPCs
-        void drawNPCs(){
+
+//Pintarlos NPCs
+void drawNPCs(){
+        if (collideEntities(player.position, player.playerSize, npc1.position, npc1.npcColSize)){
+        npc1.following = true;
+        }
+        if (collideEntities(player.position, player.playerSize, npc2.position, npc2.npcColSize)){
+        npc2.following = true;
+        }
+        if (npc1.following){
         npc1.move(player.position);
+        }
+        if (npc2.following){
         npc2.move(npc1.position);
+        }
         //Sedibuja el NPC1
         fill(#C78DA3);
         image(PNJsimage, npc1.position.x, npc1.position.y);
-        
-        
+
         //Sedibuja el NPC2
         fill(#FBD2C1);
         image(PNJsimage, npc2.position.x, npc2.position.y);
-    }
+}
         
-        //La función signum devuelve +1 o -1 en función del signo del número pasado como parámetro. Devuelve 0 si el número es 0
-        int signum(float number){
-        if (number > 0) return 1;
-        if (number < 0) return -1;
-        return 0;
-    }
+//La función signum devuelve +1 o -1 en función del signo del número pasado como parámetro. Devuelve 0 si el número es 0
+int signum(float number){
+    if (number > 0) return 1;
+    if (number < 0) return -1;
+    return 0;
+} 
+ 
+
         
         

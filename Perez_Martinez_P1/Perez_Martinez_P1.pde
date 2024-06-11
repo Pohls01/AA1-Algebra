@@ -190,6 +190,7 @@ void draw() {
                 drawEnemies();
                 player.move();
                 
+                //updateNPCs();
                 drawNPCs();
                 
                 moveEnemies();
