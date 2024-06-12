@@ -9,6 +9,7 @@ float maxLoopDuration = 3000;
 ArrayList<PassiveEnemy> pEnemies = new ArrayList<PassiveEnemy>();
 ArrayList<ChasingEnemy> cEnemies = new ArrayList<ChasingEnemy>();
 
+int lastWaveTime = 0;
 
 
 class Enemy {
@@ -97,6 +98,22 @@ class ChasingEnemy extends Enemy {
     }
 }
 
+void generateWave(int N) {
+    // Genera N enemigos
+    for (int i = 0; i < N; i++) {
+        if (random(1) < 0.5) {
+            // Genera un enemigo pasivo y añádelo a tu lista de enemigos pasivos
+            PassiveEnemy pEnemy = new PassiveEnemy();
+            pEnemy.initializeEnemy();
+            pEnemies.add(pEnemy);
+        } else {
+            // Genera un enemigo perseguidor y añádelo a tu lista de enemigos perseguidores
+            ChasingEnemy cEnemy = new ChasingEnemy();
+            cEnemy.initializeEnemy();
+            cEnemies.add(cEnemy);
+        }
+    }
+}
 void InitializeEnemies() {
     //Arrays Initialization
     
@@ -144,4 +161,6 @@ void moveEnemies() {
         enemy.move();
     }
 }
+
+
 

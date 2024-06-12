@@ -4,6 +4,9 @@
 Obstacle[] circleObstacles;
 Obstacle[] rectObstacles;
 
+//Añadimos un margen para que los obstáculos no se superpongan con los bordes y evitar que enemigos se queden atascados
+int windowMargin = 100; //Margin of the window
+
 int amountCircleObstacles = 8; //Amount of circle obstacles in the scene
 int amountRectObstacles = 7; //Amount of rectangle obstacles in the scene
 
@@ -25,7 +28,7 @@ Obstacle InitCircleObstacle() {
     tempCircle.isCircle = true;
     tempCircle.size = new PVector(20,20);
     do {
-        tempCircle.position = new PVector(random(width), random(height));
+        tempCircle.position = new PVector(random(windowMargin, width - windowMargin), random(windowMargin, height - windowMargin));
     } while (isCollidingWithAnyObstacle(tempCircle));
     tempCircle.obsQuadrant = getQuadrant(tempCircle.position);
     return tempCircle;
@@ -36,7 +39,7 @@ Obstacle InitRectObstacle() {
     tempRect.isCircle = false;
     tempRect.size = new PVector(60,20);
     do {
-        tempRect.position = new PVector(random(width), random(height));
+        tempRect.position = new PVector(random(windowMargin, width - windowMargin), random(windowMargin, height - windowMargin));
     } while (isCollidingWithAnyObstacle(tempRect));
     tempRect.min_obs = new PVector(tempRect.position.x - tempRect.size.x / 2, tempRect.position.y - tempRect.size.y / 2); 
     tempRect.max_obs = new PVector(tempRect.position.x + tempRect.size.x / 2, tempRect.position.y + tempRect.size.y / 2); 

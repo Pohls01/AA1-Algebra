@@ -28,7 +28,8 @@ PImage PJimage;
 PImage PNJimage, PNJ2image;
 PImage enemies;
 PImage circularobstacle, rectobstacle;
-PImage fondito, gateopen, gateclosed;
+PImage title;
+PImage fondito, gateopen, gateclosed, gatespikes;
 
 
 PFont titulo;
@@ -36,9 +37,9 @@ PFont titulo;
 
 //Set Up - Se ejecuta 1 vez al principio
 void setup() {
-    //La ventana
-    size(1920, 1080);
-    //fullScreen();
+    //DISCLAIMER!!! Cambiar a size en caso de problemas con la resolución en fullScreen
+    //size(1920, 1080);
+    fullScreen();
     
     setupInputs();
 
@@ -46,22 +47,28 @@ void setup() {
     titulo = createFont("Cyberpunks Italic.ttf", 50);
     
     //Initialize/Load images 
+    fondito = loadImage("background.png"); 
+    title = loadImage("titulo.png");
+    gateopen = loadImage("gateopen.png");
+    gateclosed = loadImage("gateclosed.png");
+    gatespikes = loadImage("gatespikes.png");
     PJimage = loadImage("PJ.png");
     PNJimage = loadImage("PNJ.png");
     PNJ2image = loadImage("PNJ2.png");
     enemies = loadImage("enemy.png");
     circularobstacle = loadImage("circleobstacle.png");
     rectobstacle = loadImage("rectangleobstacle.png");
-    fondito = loadImage("background.png"); //no se porque si se pone el fondo en background espolota xd
-    gateopen = loadImage("gateopen.png");
-    gateclosed = loadImage("gateclosed.png");
+    
 }
 
-//Escena Inicial
+//Escena Title Screen
 void startDraw() {
     //background(255);
+    imageMode(CORNER);
     image(fondito, 0, 0);
     fondito.resize(width, height);
+    imageMode(CENTER);
+    image(title, width/2 , 300);
     textFont(titulo);
     textAlign(CENTER, CENTER);
     fill(255);
@@ -119,7 +126,7 @@ void BossSetUp() {
 
 //Boss Scene
 void bossScene() {
-    background(gateopen);
+    background(gatespikes);
     //imageMode(CENTER);
     player.move();
     image(PJimage, player.position.x, player.position.y);
@@ -201,6 +208,12 @@ void draw() {
                 player.move();
 
                 drawNPCs();
+                
+                //Genera las oleadas de enemigos cada 30 segundos
+                if (millis() - lastWaveTime >= 30000) {
+                    lastWaveTime = millis();
+                    generateWave(N);
+                }
 
                 drawEnemies();
                 moveEnemies();
