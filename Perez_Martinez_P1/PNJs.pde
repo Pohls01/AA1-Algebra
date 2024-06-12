@@ -115,7 +115,7 @@ void drawNPCs(){
         if (collideEntities(player.position, player.playerSize, npc1.position, npc1.npcColSize)){
         npc1.following = true;
         }
-        if (collideEntities(player.position, player.playerSize, npc2.position, npc2.npcColSize)){
+        if (collideEntities(player.position, player.playerSize, npc2.position, npc2.npcColSize) && npc1.following){
         npc2.following = true;
         }
         if (npc1.following){
@@ -123,16 +123,15 @@ void drawNPCs(){
         }
         if (npc2.following){
         npc2.move(npc1.position);
-        powerUpAvailable = true;
 
         }
         //Sedibuja el NPC1
         fill(#C78DA3);
-        image(PNJsimage, npc1.position.x, npc1.position.y);
+        image(PNJimage, npc1.position.x, npc1.position.y);
 
         //Sedibuja el NPC2
         fill(#FBD2C1);
-        image(PNJsimage, npc2.position.x, npc2.position.y);
+        image(PNJ2image, npc2.position.x, npc2.position.y);
 }
         
 //La función signum devuelve +1 o -1 en función del signo del número pasado como parámetro. Devuelve 0 si el número es 0

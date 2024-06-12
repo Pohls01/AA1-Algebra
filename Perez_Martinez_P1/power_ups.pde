@@ -4,7 +4,7 @@ powerUp activePowerUp;
 int powerUpCount = 0;
 int lastPowerUp = 0;
 boolean checkingTime = false;
-boolean powerUpAvailable = false;
+
 
 
 class powerUp{

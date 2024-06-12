@@ -12,13 +12,15 @@ int score = 0;
 int gracePeriod = 1000;
 int lastDamage = 0;
 
+boolean allNPCsCollected = false;
+
 float followThreshold = 15;
 
 Player player;
 Bullet myBullet;
 
 PImage PJimage;
-PImage PNJsimage;
+PImage PNJimage, PNJ2image;
 PImage enemies;
 PImage circularobstacle, rectobstacle;
 PImage fondito, gateopen, gateclosed;
@@ -33,14 +35,11 @@ void setup() {
     
     setupInputs();
     titulo = createFont("Cyberpunks Italic.ttf", 50);
-    //color de fondo
-    //NewDestination();
-    
-    
     
     //Initialize/Load images 
     PJimage = loadImage("PJ.png");
-    PNJsimage = loadImage("PNJ.png");
+    PNJimage = loadImage("PNJ.png");
+    PNJ2image = loadImage("PNJ2.png");
     enemies = loadImage("enemy.png");
     circularobstacle = loadImage("circleobstacle.png");
     rectobstacle = loadImage("rectangleobstacle.png");
@@ -110,6 +109,7 @@ void BossSetUp() {
     
     
 }
+
 //Boss Scene
 void bossScene() {
     background(gateopen);
@@ -186,7 +186,8 @@ void draw() {
                 background(gateclosed);
                 }
                 
-                activePowerUp.drawPowerUp();
+               
+               activePowerUp.drawPowerUp();
                 
                 drawEnemies();
                 player.move();
@@ -221,9 +222,6 @@ void draw() {
                 
             }
             
-            
-            //fill(#AA514E);
-            //ellipse(player.x, player.y, 30.0, 30.0);
             
             //Contadorde tiempo restante de partida
             if (millis() - currentTime >= 1000) {
