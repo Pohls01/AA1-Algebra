@@ -20,63 +20,63 @@ class Obstacle{
 
 //PARA EVITAR QUE LOS OBSTACULOS SE SUPERPONGAN
 
+Obstacle InitCircleObstacle() {
+    Obstacle tempCircle = new Obstacle();
+    tempCircle.isCircle = true;
+    tempCircle.size = new PVector(20,20);
+    do {
+        tempCircle.position = new PVector(random(width), random(height));
+    } while (isCollidingWithAnyObstacle(tempCircle));
+    tempCircle.obsQuadrant = getQuadrant(tempCircle.position);
+    return tempCircle;
+}
+
+Obstacle InitRectObstacle() {
+    Obstacle tempRect = new Obstacle();
+    tempRect.isCircle = false;
+    tempRect.size = new PVector(60,20);
+    do {
+        tempRect.position = new PVector(random(width), random(height));
+    } while (isCollidingWithAnyObstacle(tempRect));
+    tempRect.min_obs = new PVector(tempRect.position.x - tempRect.size.x / 2, tempRect.position.y - tempRect.size.y / 2); 
+    tempRect.max_obs = new PVector(tempRect.position.x + tempRect.size.x / 2, tempRect.position.y + tempRect.size.y / 2); 
+    tempRect.obsQuadrant = getQuadrant(tempRect.position);  
+    return tempRect;
+}
+
+boolean isCollidingWithAnyObstacle(Obstacle newObstacle) {
+    for (Obstacle obstacle : circleObstacles) {
+        if (obstacle != null && collideEntities(newObstacle.position, newObstacle.size.x + 75, obstacle.position, obstacle.size.x)) {
+            return true;
+        }
+    }
+    for (Obstacle obstacle : rectObstacles) {
+        if (obstacle != null && collideEntities(newObstacle.position, newObstacle.size.x + 75, obstacle.position, obstacle.size.x)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 // Obstacle InitCircleObstacle() {
 //     Obstacle tempCircle = new Obstacle();
 //     tempCircle.isCircle = true;
-//     do {
-//         tempCircle.position = new PVector(random(width), random(height));
-//     } while (isCollidingWithAnyObstacle(tempCircle));
+//     tempCircle.position = new PVector(random(width), random(height));
 //     tempCircle.size = new PVector(20,20);
 //     tempCircle.obsQuadrant = getQuadrant(tempCircle.position);
 //     return tempCircle;
 // }
-
 // Obstacle InitRectObstacle() {
 //     Obstacle tempRect = new Obstacle();
 //     tempRect.isCircle = false;
-//     do {
-//         tempRect.position = new PVector(random(width), random(height));
-//     } while (isCollidingWithAnyObstacle(tempRect));
+//     tempRect.position = new PVector(random(width), random(height));
 //     tempRect.size = new PVector(60,20);
 //     tempRect.min_obs = new PVector(tempRect.position.x - tempRect.size.x / 2, tempRect.position.y - tempRect.size.y / 2); 
 //     tempRect.max_obs = new PVector(tempRect.position.x + tempRect.size.x / 2, tempRect.position.y + tempRect.size.y / 2); 
 //     tempRect.obsQuadrant = getQuadrant(tempRect.position);  
 //     return tempRect;
 // }
-
-// boolean isCollidingWithAnyObstacle(Obstacle newObstacle) {
-//     for (Obstacle obstacle : circleObstacles) {
-//         if (obstacle != null && calculateCollisions(newObstacle.position, newObstacle.size, obstacle.position, obstacle.size)) {
-//             return true;
-//         }
-//     }
-//     for (Obstacle obstacle : rectObstacles) {
-//         if (obstacle != null && calculateCollisions(newObstacle.position, newObstacle.size, obstacle.position, obstacle.size)) {
-//             return true;
-//         }
-//     }
-//     return false;
-// }
-
-
-Obstacle InitCircleObstacle() {
-    Obstacle tempCircle = new Obstacle();
-    tempCircle.isCircle = true;
-    tempCircle.position = new PVector(random(width), random(height));
-    tempCircle.size = new PVector(20,20);
-    tempCircle.obsQuadrant = getQuadrant(tempCircle.position);
-    return tempCircle;
-}
-Obstacle InitRectObstacle() {
-    Obstacle tempRect = new Obstacle();
-    tempRect.isCircle = false;
-    tempRect.position = new PVector(random(width), random(height));
-    tempRect.size = new PVector(60,20);
-    tempRect.min_obs = new PVector(tempRect.position.x - tempRect.size.x / 2, tempRect.position.y - tempRect.size.y / 2); 
-    tempRect.max_obs = new PVector(tempRect.position.x + tempRect.size.x / 2, tempRect.position.y + tempRect.size.y / 2); 
-    tempRect.obsQuadrant = getQuadrant(tempRect.position);  
-    return tempRect;
-}
 
 
 //SET UP
