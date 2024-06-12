@@ -10,6 +10,7 @@ class Player{
     float playerSize = 15;
     int playerQuadrant;
     boolean colliding = false;
+    int score = 0; 
 
    
 
@@ -18,12 +19,14 @@ class Player{
             PassiveEnemy enemy = pEnemies.get(i);
             if (collideEntities(position, playerSize, enemy.position, enemy.enemyColSize)) {
                 pEnemies.remove(i);
+                score += 1;
             }
         }
         for (int i = cEnemies.size() - 1; i >= 0; i--) {
             ChasingEnemy enemy = cEnemies.get(i);
             if (collideEntities(position, playerSize, enemy.position, enemy.enemyColSize)) {
                 cEnemies.remove(i);
+                score += 1;
             }
         }
     }
@@ -32,6 +35,7 @@ class Player{
         
         if (collideEntities(position, playerSize,activePowerUp.position, activePowerUp.size.x)) {
             activePowerUp.GenerateRandomPowerUP();
+            score += 100;
         }
         
         PVector tempPos = new PVector(position.x,position.y);

@@ -28,8 +28,8 @@ PImage fondito, gateopen, gateclosed;
 //Set Up - Se ejecuta 1 vez al principio
 void setup() {
     //La ventana
-    //size(1920, 1080);
-    fullScreen();
+    size(1920, 1080);
+    //fullScreen();
     
     setupInputs();
     titulo = createFont("Cyberpunks Italic.ttf", 50);
@@ -163,6 +163,7 @@ void draw() {
             }
             //Middle Scene
             else{
+
                 if(powerUpCount >= 5){
                      background(gateopen);
 
@@ -215,6 +216,7 @@ void draw() {
                 text(activePowerUp.description, width / 2, height - 100);
                 text("PowerUps: " + powerUpCount, 100, height - 100);
                 text(salud + " HP - Vidas: " + vidas, 100,100);
+                text("Score: " + player.score, width - 500, 100);
                 textAlign(CENTER);
                 
             }

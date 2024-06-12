@@ -5,6 +5,7 @@
 //Q sera la posición del PJ (final)
 //P sera la posición del PNJ (inicial)
 //El PJ, osea Q, esta en la posición del ratón
+
 NPC npc1;
 NPC npc2;
 
@@ -19,6 +20,7 @@ class NPC{
     float speed;
     int unstuckTime;
     PVector targetPoint = new PVector(0,0);
+    
     
     void getTargetPoint(PVector target) {
         
@@ -43,25 +45,27 @@ class NPC{
             direction.normalize();
             tempPos.x += direction.x * speed;
             tempPos.y += direction.y * speed;
+
             if(!calculateCollisions(tempPos, npcColSize)){  
-            position.x = constrain (tempPos.x, 5, width-5);
-            position.y = constrain (tempPos.y, 5, height-5);
-        }
+                position.x = constrain (tempPos.x, 5, width-5);
+                position.y = constrain (tempPos.y, 5, height-5);
+            }
             else{
-            if(!deviating){
-            deviating = true;
-            targetPoint.x = position.x-direction.x*100;
-            targetPoint.y = position.y-direction.y*100;
-            unstuckTime = millis();
-        }
-            if(takesDamage){
-            checkDamage(10);
-        } 
-        }
+                if(!deviating){
+                    deviating = true;
+                    targetPoint.x = position.x-direction.x*100;
+                    targetPoint.y = position.y-direction.y*100;
+                    unstuckTime = millis();
+                }
+                if(takesDamage){
+                    checkDamage(10);
+                } 
+            }
         }
         }
 }
 
+//Inicialización de los NPCs
 NPC InitializeNPC1(){
         NPC tempNPC = new NPC();
         tempNPC.takesDamage = false;
@@ -119,6 +123,8 @@ void drawNPCs(){
         }
         if (npc2.following){
         npc2.move(npc1.position);
+        powerUpAvailable = true;
+
         }
         //Sedibuja el NPC1
         fill(#C78DA3);
