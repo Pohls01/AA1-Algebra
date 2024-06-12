@@ -4,7 +4,7 @@ powerUp activePowerUp;
 int powerUpCount = 0;
 int lastPowerUp = 0;
 boolean checkingTime = false;
-boolean powerUpAvailable = false;
+
 
 
 class powerUp{
@@ -14,6 +14,7 @@ class powerUp{
     String description = "";
     int duration = 10;
     
+    //FUNCIONES DE POWER UP
     void PowerUpAumentoVelocidad() {
         player.playerSpeed *= 1.5;
         npc1.speed *= 1.5;

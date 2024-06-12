@@ -4,6 +4,7 @@ class Vector2{
     float y;
 }
 
+
 char charUpper(char c) {
     if (c >= 'a' && c <= 'z') {
         c += 'a' - 'A';
@@ -11,6 +12,7 @@ char charUpper(char c) {
     return c;
 }
 
+// Funcion para obtener el cuadrante de una posicion
 int getQuadrant(PVector position) {
     if (position.x < width / 2.0) {
         if (position.y < height / 2.0) return 1;
@@ -20,6 +22,8 @@ int getQuadrant(PVector position) {
         else return 3;
     }
 }
+
+//Calculo de colisiones en base a la posicion y el tamaño de los objetos
 boolean calculateCollisions(PVector pos, float colSize) {
     // Evaluate collisions
     PVector min_pc = new PVector(pos.x - colSize, pos.y - colSize);
@@ -42,12 +46,14 @@ boolean calculateCollisions(PVector pos, float colSize) {
     return false;
 }
 
+
 int GetRandomSign() {
     float tempInt = random( -1,1);
     if (tempInt < 0) return - 1;
     else return 1;
 }
 
+// Colisiones de enemigos
 boolean enemyCollide(PVector pos, float colSize) {
     int quadrant = getQuadrant(pos);
     for (int i = 0; i < pEnemies.size();i++) {
@@ -68,12 +74,15 @@ boolean enemyCollide(PVector pos, float colSize) {
     }
     return false;
 }
+
+//Colisiones entre entidades de objetos (Player, PNJ, Enemigos)
 boolean collideEntities(PVector pos1, float colSize1, PVector pos2, float colSize2) {
     if (sqrt(pow(pos1.x - pos2.x,2) + pow(pos1.y - pos2.y,2)) <= colSize1 + colSize2) {
         return true;
     }
     return false;
 }
+
 void emptyArrayList(ArrayList list) {
     for (int i = list.size() - 1; i >= 0; i--) {
         list.remove(i);

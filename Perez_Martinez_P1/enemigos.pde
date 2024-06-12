@@ -65,6 +65,7 @@ class Enemy {
     }
 }
 
+//Clase de enemigos pasivos (Rondan la escena)
 class PassiveEnemy extends Enemy {
     void GetNewDestination() {
         currDestination.x = random(15, width - 15);
@@ -78,6 +79,7 @@ class PassiveEnemy extends Enemy {
     }
 }
 
+//Clase de enemigos activos (Persiguen al jugador)
 class ChasingEnemy extends Enemy {
     
     void UpdateDestination() {
@@ -111,7 +113,7 @@ void InitializeEnemies() {
     //Inicializar un punto de destino para los enemigos
 }
 
-
+//Dibujamos a los enemigos en la escena
 void drawEnemies() {
     fill(255, 0, 0);
     for (int i = 0; i < pEnemies.size(); i++) {
@@ -141,23 +143,5 @@ void moveEnemies() {
         }
         enemy.move();
     }
-    
-    
-    //// Movimiento de dirección a Coordenadas
-    //float direccioX = desiredX - enemy.x;
-    //float direccioY = desiredY - enemy.y;
-    //float magnitud = dist(desiredX, desiredY, enemyX[i], enemyY[i]);
-    
-    //// Normaliza el vector de dirección
-    //direccioX /= magnitud;
-    //direccioY /= magnitud;
-    
-    //// Aplica el movimiento en la dirección normalizada
-    //enemyX[i] += direccioX * enemySpeed;
-    //enemyY[i] += direccioY * enemySpeed;
-    
-    //Constrains a value to not exceed a maximum and minimum value, in this case the enemies can't exceed the window
-    //enemyX[i] = constrain(enemyX[i], 10, width - 10);
-    //enemyY[i] = constrain(enemyY[i], 10, height - 10);
 }
-// Cambia las coordenadas de destino cada cierto tiempo
+

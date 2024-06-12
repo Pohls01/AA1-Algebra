@@ -1,16 +1,23 @@
 //Variables
+
+//Scene Managing Variables
 boolean inStart = true;
 boolean inBoss = false;
-PFont titulo;
+
 int N = 0;
 int vidas = 3;
 int salud = 100;
+
+//Time variables
 int currentTime;
 int timeLeft;
 int maxTimeGame = 150;
+
 int score = 0;
 int gracePeriod = 1000;
 int lastDamage = 0;
+
+boolean allNPCsCollected = false;
 
 float followThreshold = 15;
 
@@ -18,11 +25,13 @@ Player player;
 Bullet myBullet;
 
 PImage PJimage;
-PImage PNJsimage;
+PImage PNJimage, PNJ2image;
 PImage enemies;
 PImage circularobstacle, rectobstacle;
 PImage fondito, gateopen, gateclosed;
 
+
+PFont titulo;
 
 
 //Set Up - Se ejecuta 1 vez al principio
@@ -32,15 +41,14 @@ void setup() {
     //fullScreen();
     
     setupInputs();
+
+    //Initialize/Load fonts
     titulo = createFont("Cyberpunks Italic.ttf", 50);
-    //color de fondo
-    //NewDestination();
-    
-    
     
     //Initialize/Load images 
     PJimage = loadImage("PJ.png");
-    PNJsimage = loadImage("PNJ.png");
+    PNJimage = loadImage("PNJ.png");
+    PNJ2image = loadImage("PNJ2.png");
     enemies = loadImage("enemy.png");
     circularobstacle = loadImage("circleobstacle.png");
     rectobstacle = loadImage("rectangleobstacle.png");
@@ -49,7 +57,7 @@ void setup() {
     gateclosed = loadImage("gateclosed.png");
 }
 
-//Escena inicial
+//Escena Inicial
 void startDraw() {
     //background(255);
     image(fondito, 0, 0);
@@ -94,13 +102,11 @@ void gameSetup() {
     
     
     activePowerUp = InitializePowerUp();
-    //myBullet = Bullet.initializeBullets();
-
-    
+    //myBullet = Bullet.initializeBullets();  
     
 }
-//Boss Set Up Scene
 
+//Boss Set Up Scene
 void BossSetUp() {
     circleObstacles = new Obstacle[0];
     rectObstacles = new Obstacle[0];
@@ -110,6 +116,7 @@ void BossSetUp() {
     
     
 }
+
 //Boss Scene
 void bossScene() {
     background(gateopen);
@@ -186,17 +193,18 @@ void draw() {
                 background(gateclosed);
                 }
                 
-                activePowerUp.drawPowerUp();
-                
-                drawEnemies();
+                //Los power ups se muestran solo si se han recogido todos los NPCs
+                if(allNPCsCollected){
+                    activePowerUp.drawPowerUp();
+                }
+
                 player.move();
-                
-                //updateNPCs();
+
                 drawNPCs();
-                
+
+                drawEnemies();
                 moveEnemies();
-                
-                
+    
                 drawObstacles();
                 
                 //Pintar el PJ
@@ -209,21 +217,21 @@ void draw() {
                     timeLeft--;
                     currentTime = millis();
                 }
+
                 textSize(70);
                 fill(0);
                 text(timeLeft / 60 + ":" + nf(timeLeft % 60,2),width / 2,100);
                 textAlign(LEFT);
+                
                 text(activePowerUp.description, width / 2, height - 100);
                 text("PowerUps: " + powerUpCount, 100, height - 100);
+                
                 text(salud + " HP - Vidas: " + vidas, 100,100);
                 text("Score: " + player.score, width - 500, 100);
                 textAlign(CENTER);
                 
             }
             
-            
-            //fill(#AA514E);
-            //ellipse(player.x, player.y, 30.0, 30.0);
             
             //Contadorde tiempo restante de partida
             if (millis() - currentTime >= 1000) {
