@@ -21,8 +21,8 @@ class Boss {
         currDirection.x = (currDestination.x - position.x) / magnitude;
         currDirection.y = (currDestination.y - position.y) / magnitude;
         
-        position.x += currDirection.x * bossSpeed;
-        position.y += currDirection.y * bossSpeed;
+        position.x -= currDirection.x * bossSpeed;
+        position.y -= currDirection.y * bossSpeed;
     }
     
     void drawBoss() {

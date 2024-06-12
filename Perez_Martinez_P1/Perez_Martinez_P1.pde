@@ -30,7 +30,7 @@ PImage enemies;
 PImage circularobstacle, rectobstacle;
 PImage title;
 PImage fondito, gateopen, gateclosed, gatespikes;
-
+PImage death, win;
 
 PFont titulo;
 
@@ -58,7 +58,8 @@ void setup() {
     enemies = loadImage("enemy.png");
     circularobstacle = loadImage("circleobstacle.png");
     rectobstacle = loadImage("rectangleobstacle.png");
-    
+    death = loadImage("death.png");
+    win = loadImage("win.png");
 }
 
 //Escena Title Screen
@@ -81,7 +82,7 @@ void startDraw() {
     textSize(25);
     textAlign(CENTER);
     fill(255);
-    text("Presiona M (Ratón) o K (Teclado) INGAME para cambiar el movimiento", width / 2, height / 2 + 250);
+    text("Press M (Mouse) o K (Keyboard) INGAME to change Movement System", width / 2, height / 2 + 250);
     
 }
 
@@ -135,7 +136,7 @@ void bossScene() {
     // bossShoot();
     
     textSize(70);
-    fill(0);
+    fill(255);
     text(timeLeft / 60 + ":" + nf(timeLeft % 60,2),width / 2,100);
     textAlign(LEFT);
     text(salud + " HP - Vidas: " + vidas, 100,100);
@@ -153,11 +154,13 @@ void draw() {
     }
     else{
         if (timeLeft <= 0 || vidas == 0) {
-            background(153);
+            background(fondito);
             textSize(25);
             textAlign(CENTER);
-            fill(0);
-            text("HAS MUERTO", width / 2, height / 2 + 250);
+            fill(255);
+            text("YOU DIED", width / 2, height / 2 + 200);
+            text("Score: " + player.score, width / 2, height / 2 + 250);
+            image(death, width / 2, height / 2);
             
             
         }
@@ -165,11 +168,13 @@ void draw() {
             //Third Scene
             if (inBoss) {
                 if (bossKilled) {
-                    background(153);
+                    background(fondito);
                     textSize(25);
                     textAlign(CENTER);
-                    fill(0);
-                    text("HAS GANADO", width / 2, height / 2 + 250);
+                    fill(255);
+                    text("YOU WON", width / 2, height / 2 + 200);
+                    text("Score: " + player.score, width / 2, height / 2 + 250);
+                    image(win, width / 2, height / 2);
                 }
                 else{
                     bossScene();
@@ -178,7 +183,7 @@ void draw() {
             //Middle Scene
             else{
 
-                if(powerUpCount >= 5){
+                if(powerUpCount >= 1){
                      background(gateopen);
 
                     PVector obstaclePosition = new PVector(510, 0);
