@@ -3,9 +3,9 @@ boolean bulletActive = false;
 
 class Player{
     PVector position;
+    PVector direction = new PVector(0,0);
     float mouseDelay = 0.7;
     float playerSpeed = 10;
-    PVector direction = new PVector(0,0);
     float anglePlayer;
     float playerSize = 15;
     int playerQuadrant;
@@ -13,12 +13,13 @@ class Player{
     int score = 0; 
 
    
-
+    //Función para cazar enemigos
     void eatEnemies() {
         for (int i = pEnemies.size() - 1; i >= 0; i--) {
             PassiveEnemy enemy = pEnemies.get(i);
             if (collideEntities(position, playerSize, enemy.position, enemy.enemyColSize)) {
                 pEnemies.remove(i);
+                //Aumento de score por cada enemigo cazado
                 score += 1;
             }
         }
@@ -26,6 +27,7 @@ class Player{
             ChasingEnemy enemy = cEnemies.get(i);
             if (collideEntities(position, playerSize, enemy.position, enemy.enemyColSize)) {
                 cEnemies.remove(i);
+                //Aumento de score por cada enemigo cazado
                 score += 1;
             }
         }
@@ -35,6 +37,7 @@ class Player{
         
         if (collideEntities(position, playerSize,activePowerUp.position, activePowerUp.size.x)) {
             activePowerUp.GenerateRandomPowerUP();
+            //Aumento de score por cada power up recogido
             score += 100;
         }
         

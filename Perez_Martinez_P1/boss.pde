@@ -35,6 +35,7 @@ class Boss {
             position.y = height / 2;
             if (health <= 0)
                 bossKilled = true;
+                
         }
     }
 }
@@ -46,6 +47,7 @@ Boss initializeBoss() {
     //loopStartTime = millis();
     return tBoss;
 }
+
 class Bullet{
     PVector bulletPos;
     PVector bulletDirection;
@@ -60,11 +62,11 @@ class Bullet{
     }
     void move() {
         for (int i = 0; i < bulletsPerShot; i++) {
-
         }
     }
     
 }
+
 void bossShoot() {
     if (millis() - bulletWait > lastBullet) {
         emptyArrayList(bullets);

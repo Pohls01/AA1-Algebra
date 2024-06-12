@@ -21,7 +21,7 @@ class NPC{
     int unstuckTime;
     PVector targetPoint = new PVector(0,0);
     
-    
+    //Función para calcular la posición a la que se dirige el NPC
     void getTargetPoint(PVector target) {
         
         float angle = atan(abs(target.y - position.y) / abs(target.x - position.x));
@@ -29,6 +29,7 @@ class NPC{
         targetPoint.y = target.y - signum(target.y - position.y) * offset * sin(angle);
     }
     
+
     void move(PVector target) {
         if (enemyCollide(position,npcColSize)) {
             checkDamage(20);
@@ -62,7 +63,7 @@ class NPC{
                 } 
             }
         }
-        }
+    }
 }
 
 //Inicialización de los NPCs
@@ -89,7 +90,8 @@ NPC InitializeNPC2(){
         tempNPC.getTargetPoint(npc1.position);
         return tempNPC;
 }
-        
+
+//Función para comprobar si el enemigo colisiona con el jugador        
 void checkDamage(int damage){
     if (millis() - gracePeriod > lastDamage){
         salud -= damage;
@@ -101,29 +103,21 @@ void checkDamage(int damage){
     }
 }
         
-        //float xNPC = width / 2;
-        //float yNPC = height / 2;
-        //float xNPC2 = width / 2;
-        //float yNPC2 = height / 2;
-        //float alpha = 0.075;
-        //float angleNPC1;
-        //float angleNPC2;
-        
 
 //Pintarlos NPCs
 void drawNPCs(){
         if (collideEntities(player.position, player.playerSize, npc1.position, npc1.npcColSize)){
-        npc1.following = true;
+            npc1.following = true;
         }
         if (collideEntities(player.position, player.playerSize, npc2.position, npc2.npcColSize) && npc1.following){
-        npc2.following = true;
+            npc2.following = true;
+            allNPCsCollected = true;
         }
         if (npc1.following){
-        npc1.move(player.position);
+            npc1.move(player.position);
         }
         if (npc2.following){
-        npc2.move(npc1.position);
-
+            npc2.move(npc1.position);
         }
         //Sedibuja el NPC1
         fill(#C78DA3);

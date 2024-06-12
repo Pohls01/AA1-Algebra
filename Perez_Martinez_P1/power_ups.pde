@@ -14,6 +14,7 @@ class powerUp{
     String description = "";
     int duration = 10;
     
+    //FUNCIONES DE POWER UP
     void PowerUpAumentoVelocidad() {
         player.playerSpeed *= 1.5;
         npc1.speed *= 1.5;

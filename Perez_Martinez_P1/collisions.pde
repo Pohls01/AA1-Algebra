@@ -112,7 +112,7 @@ void drawObstacles() {
         strokeWeight(0);
         rect(rectObstacles[i].position.x, rectObstacles[i].position.y, rectObstacles[i].size.x, rectObstacles[i].size.y);
         //image(rectobstacle, rectObstacles[i].position.x, rectObstacles[i].position.y);
-        }
+    }
        
 }
     
