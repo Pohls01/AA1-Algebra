@@ -183,7 +183,7 @@ void draw() {
             //Middle Scene
             else{
 
-                if(powerUpCount >= 1){
+                if(powerUpCount >= 5){
                      background(gateopen);
 
                     PVector obstaclePosition = new PVector(510, 0);
