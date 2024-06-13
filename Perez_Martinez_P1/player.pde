@@ -35,7 +35,7 @@ class Player{
     
     void move() {
         
-        if (collideEntities(position, playerSize,activePowerUp.position, activePowerUp.size.x)) {
+        if (allNPCsCollected && collideEntities(position, playerSize,activePowerUp.position, activePowerUp.size.x)) {
             activePowerUp.GenerateRandomPowerUP();
             //Aumento de score por cada power up recogido
             score += 100;

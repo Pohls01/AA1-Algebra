@@ -106,18 +106,24 @@ void checkDamage(int damage){
 
 //Pintarlos NPCs
 void drawNPCs(){
-        if (collideEntities(player.position, player.playerSize, npc1.position, npc1.npcColSize)){
+        if (!npc1.following && collideEntities(player.position, player.playerSize, npc1.position, npc1.npcColSize)){
             npc1.following = true;
         }
-        if (collideEntities(player.position, player.playerSize, npc2.position, npc2.npcColSize) && npc1.following){
+        if (!npc2.following && collideEntities(player.position, player.playerSize, npc2.position, npc2.npcColSize) && npc1.following){
             npc2.following = true;
             allNPCsCollected = true;
+            activePowerUp = InitializePowerUp(); 
         }
         if (npc1.following){
             npc1.move(player.position);
         }
         if (npc2.following){
             npc2.move(npc1.position);
+        }
+        else{
+            if (enemyCollide(npc2.position, npc2.npcColSize)) {
+            checkDamage(20);
+            }
         }
         //Sedibuja el NPC1
         fill(#C78DA3);

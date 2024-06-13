@@ -113,7 +113,7 @@ void gameSetup() {
     timeLeft = maxTimeGame;
     currentTime = millis();
 
-    activePowerUp = InitializePowerUp(); 
+    // activePowerUp = InitializePowerUp(); 
     // if(allNPCsCollected){
        
     // }
@@ -218,7 +218,7 @@ void draw() {
                 }
                 
                 //Los power ups se muestran solo si se han recogido todos los NPCs
-                if(allNPCsCollected){
+                if(activePowerUp != null){
                     activePowerUp.drawPowerUp();
                 }
 
@@ -233,7 +233,7 @@ void draw() {
                 }
 
                 drawEnemies();
-                moveEnemies();
+                moveEnemies();  
     
                 drawObstacles();
                 
@@ -253,7 +253,9 @@ void draw() {
                 text(timeLeft / 60 + ":" + nf(timeLeft % 60,2),width / 2,100);
                 textAlign(LEFT);
                 
+                if(allNPCsCollected){
                 text(activePowerUp.description, width / 2, height - 100);
+                }
                 text("PowerUps: " + powerUpCount, 100, height - 100);
                 
                 text(salud + " HP - Vidas: " + vidas, 100,100);
