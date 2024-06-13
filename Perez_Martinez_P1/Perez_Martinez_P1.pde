@@ -26,11 +26,12 @@ Bullet myBullet;
 
 PImage PJimage;
 PImage PNJimage, PNJ2image;
-PImage enemies;
+PImage enemies, boss;
 PImage circularobstacle, rectobstacle;
 PImage title;
 PImage fondito, gateopen, gateclosed, gatespikes;
 PImage death, win;
+PImage bomb;
 
 PFont titulo;
 
@@ -62,6 +63,8 @@ void setup() {
     rectobstacle = loadImage("rectangleobstacle.png");
     death = loadImage("death.png");
     win = loadImage("win.png");
+    bomb = loadImage("bomb.png");
+    boss = loadImage("boss.png");
 }
 
 //Escena Title Screen

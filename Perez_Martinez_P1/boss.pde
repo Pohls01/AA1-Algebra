@@ -5,7 +5,7 @@ ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 boolean bossKilled = false;
 int bulletWait = 1500;
 int lastBullet = 0;
-int bulletRadius = 20;
+int bulletRadius = 40;
 
 class Boss {
     int health = 100;
@@ -29,7 +29,7 @@ class Boss {
     void drawBoss() {
         stroke(0);
         fill(0, 0, 0);
-        ellipse(position.x, position.y, 200, 200);
+        image(boss, position.x, position.y);
         if (position.x < 110 || position.x > width - 110 || position.y < 110 || position.y > height - 110) {
             health -= 20;
             position.x = width / 2;
@@ -62,7 +62,7 @@ class Bullet{
     void drawBullet() {
         if(active){
         fill(bulletColor);
-        ellipse(bulletPos.x, bulletPos.y, bulletSize.x, bulletSize.y);
+        image(bomb, bulletPos.x, bulletPos.y);
         }
     }
     void move() {
