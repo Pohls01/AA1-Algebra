@@ -149,7 +149,7 @@ void bossScene() {
     textAlign(LEFT);
     text(salud + " HP - Vidas: " + vidas, 100,100);
     textAlign(RIGHT);
-    text("Jefe: " + myBoss.health, width - 100, 100);
+    text("BOSS: " + myBoss.health, width - 100, 100);
     textAlign(CENTER);
     
 }
@@ -202,8 +202,8 @@ void draw() {
                     PVector obstacleSize = new PVector(100, 200);
 
                     //Deteccion de la colision del Portal
-                    fill(255, 0, 0);
-                    rect(obstaclePosition.x, obstaclePosition.y, obstacleSize.x, obstacleSize.y);
+                    //fill(255, 0, 0);
+                    //rect(obstaclePosition.x, obstaclePosition.y, obstacleSize.x, obstacleSize.y);
                     if (collideEntities(player.position, player.playerSize, obstaclePosition, 200)){
                         //Booleano para cambiar de escena a BOSS
                         inBoss = true;
@@ -249,13 +249,14 @@ void draw() {
                 }
 
                 textSize(70);
-                fill(0);
+                fill(255);
                 text(timeLeft / 60 + ":" + nf(timeLeft % 60,2),width / 2,100);
                 textAlign(LEFT);
                 
                 if(allNPCsCollected){
                 text(activePowerUp.description, width / 2, height - 100);
                 }
+                fill(255);
                 text("PowerUps: " + powerUpCount, 100, height - 100);
                 
                 text(salud + " HP - Vidas: " + vidas, 100,100);

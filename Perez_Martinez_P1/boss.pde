@@ -3,7 +3,7 @@ int bulletsPerShot = 10;
 float bossSpeed = 3;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 boolean bossKilled = false;
-int bulletWait = 1500;
+int bulletWait = 2000;
 int lastBullet = 0;
 int bulletRadius = 40;
 
