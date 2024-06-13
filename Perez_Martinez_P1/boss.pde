@@ -3,8 +3,9 @@ int bulletsPerShot = 10;
 float bossSpeed = 3;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 boolean bossKilled = false;
-int bulletWait = 2;
+int bulletWait = 1500;
 int lastBullet = 0;
+int bulletRadius = 20;
 
 class Boss {
     int health = 100;
@@ -51,17 +52,25 @@ Boss initializeBoss() {
 class Bullet{
     PVector bulletPos;
     PVector bulletDirection;
+    PVector bulletSize;
+    boolean active = true;
+    color bulletColor;
     float bulletAngle;
     int bulletSpeed = 10;
     
     //Posible manera de cargarse al Boss
     void drawBullet() {
-        bulletPos.x = player.direction.x * bulletSpeed;
-        fill(0, 255, 0);
-        ellipse(bulletPos.x, bulletPos.y, 20, 20);
+        if(active){
+        fill(bulletColor);
+        ellipse(bulletPos.x, bulletPos.y, bulletSize.x, bulletSize.y);
+        }
     }
     void move() {
-        for (int i = 0; i < bulletsPerShot; i++) {
+        bulletPos.x += bulletDirection.x * bulletSpeed;
+        bulletPos.y += bulletDirection.y * bulletSpeed;
+        if(active && collideEntities(bulletPos, bulletSize.x, player.position, player.playerSize)) {
+            checkDamage(25);
+            active = false;
         }
     }
     
@@ -78,15 +87,20 @@ void bossShoot() {
             myBullet.bulletPos = new PVector(myBoss.position.x , myBoss.position.y);
             myBullet.bulletSpeed = 10;
             myBullet.bulletAngle = tempAngle;
+            myBullet.bulletDirection = new PVector(cos(tempAngle), sin(tempAngle));
+            myBullet.bulletSize = new PVector(bulletRadius, bulletRadius);
+            myBullet.bulletColor = color(0, 255, 0);
             tempAngle += radians(increase);
             bullets.add(myBullet);
-            lastBullet = millis();
         }
+        lastBullet = millis();
+
     }
 }
-// void bulletMove() {
-//     for (int i = 0; i < bullets.size(); i++) {
-//         Bullet b = bullets.get(i);
-//         b.move();
-//     }
-// }
+void bulletMove() {
+    for (int i = 0; i < bullets.size(); i++) {
+        Bullet b = bullets.get(i);
+        b.move();
+        b.drawBullet();
+    }
+}

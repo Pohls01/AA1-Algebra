@@ -40,8 +40,8 @@ int windowMargin = 100; //Margin of the window
 //Set Up - Se ejecuta 1 vez al principio
 void setup() {
     //DISCLAIMER!!! Cambiar a size en caso de problemas con la resolución en fullScreen
-    //size(1920, 1080);
-    fullScreen();
+    size(1920, 1080);
+    // fullScreen();
     
     setupInputs();
 
@@ -137,7 +137,8 @@ void bossScene() {
     image(PJimage, player.position.x, player.position.y);
     myBoss.move();
     myBoss.drawBoss();
-    // bossShoot();
+    bossShoot();
+    bulletMove();
     
     textSize(70);
     fill(255);
