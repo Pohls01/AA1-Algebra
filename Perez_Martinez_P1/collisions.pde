@@ -4,8 +4,7 @@
 Obstacle[] circleObstacles;
 Obstacle[] rectObstacles;
 
-//Añadimos un margen para que los obstáculos no se superpongan con los bordes y evitar que enemigos se queden atascados
-int windowMargin = 100; //Margin of the window
+
 
 int amountCircleObstacles = 8; //Amount of circle obstacles in the scene
 int amountRectObstacles = 7; //Amount of rectangle obstacles in the scene

@@ -71,7 +71,7 @@ NPC InitializeNPC1(){
         NPC tempNPC = new NPC();
         tempNPC.takesDamage = false;
     do{
-        tempNPC.position = new PVector(random(width), random(height));
+        tempNPC.position = new PVector(random(windowMargin, width - windowMargin), random(windowMargin, height - windowMargin));
     } while(calculateCollisions(tempNPC.position, tempNPC.npcColSize));
         tempNPC.offset = 80;
         tempNPC.speed = 9;
@@ -83,7 +83,7 @@ NPC InitializeNPC2(){
     NPC tempNPC = new NPC();
     tempNPC.takesDamage = true;
     do{
-        tempNPC.position = new PVector(random(width), random(height));
+        tempNPC.position = new PVector(random(windowMargin, width - windowMargin), random(windowMargin, height - windowMargin));
     } while(calculateCollisions(tempNPC.position, tempNPC.npcColSize));
         tempNPC.offset = 150;
         tempNPC.speed = 8;

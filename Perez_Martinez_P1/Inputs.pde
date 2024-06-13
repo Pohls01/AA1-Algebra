@@ -38,14 +38,11 @@ void keyPressed() {
         if (key == 'M' || key == 'm') {
             mouseCommandActivated = true; 
         }
-        
+        //Cheat code para saltar a la pantalla de jefe
         if (key == 'B' || key == 'b') {
             inBoss = true; 
             bulletActive = true;
             BossSetUp();
-        }
-        if (key == 'R' || key == 'r') {
-            inStart = true; 
         }
         
         if (key ==  'w' || key ==  'W')
@@ -69,7 +66,7 @@ void keyReleased() {
         keyRight = false;
 }
 
-//Función que sellama al hacer clic con el ratón
+//Función que se llama al hacer clic con el ratón
 void mousePressed() {
     //Si estamos en la escena inicial y hacemos clic sobre el botón de inicio, se desactiva la escena inicial
     if (inStart) {
