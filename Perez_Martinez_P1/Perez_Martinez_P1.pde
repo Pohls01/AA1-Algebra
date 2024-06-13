@@ -34,6 +34,8 @@ PImage death, win;
 
 PFont titulo;
 
+//Añadimos un margen para que los obstáculos no se superpongan con los bordes y evitar que enemigos se queden atascados
+int windowMargin = 100; //Margin of the window
 
 //Set Up - Se ejecuta 1 vez al principio
 void setup() {
@@ -107,9 +109,11 @@ void gameSetup() {
     }
     timeLeft = maxTimeGame;
     currentTime = millis();
-    
-    
-    activePowerUp = InitializePowerUp();
+
+    activePowerUp = InitializePowerUp(); 
+    // if(allNPCsCollected){
+       
+    // }
     //myBullet = Bullet.initializeBullets();  
     
 }
@@ -158,9 +162,11 @@ void draw() {
             textSize(25);
             textAlign(CENTER);
             fill(255);
+            image(death, width / 2, height / 2);
             text("YOU DIED", width / 2, height / 2 + 200);
             text("Score: " + player.score, width / 2, height / 2 + 250);
-            image(death, width / 2, height / 2);
+            
+            
             
             
         }
@@ -172,9 +178,11 @@ void draw() {
                     textSize(25);
                     textAlign(CENTER);
                     fill(255);
+                    image(win, width / 2, height / 2);
                     text("YOU WON", width / 2, height / 2 + 200);
                     text("Score: " + player.score, width / 2, height / 2 + 250);
-                    image(win, width / 2, height / 2);
+                    
+                   
                 }
                 else{
                     bossScene();
@@ -215,7 +223,7 @@ void draw() {
                 drawNPCs();
                 
                 //Genera las oleadas de enemigos cada 30 segundos
-                if (millis() - lastWaveTime >= 30000) {
+                if (millis() - lastWaveTime >= 20000) {
                     lastWaveTime = millis();
                     generateWave(N);
                 }
